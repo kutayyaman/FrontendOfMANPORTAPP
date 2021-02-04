@@ -1,7 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { signup } from '../api/apiCalls';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelopeSquare, faLock, faUser } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelopeSquare, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
+import Input from '../components/input';
 
 class UserSignupPage extends React.Component {
 
@@ -56,54 +57,19 @@ class UserSignupPage extends React.Component {
 
     render() { // Component'i inherit ettiğimiz için bunu override etmek zorundayız.
         const { pendingApiCall, errors } = this.state;
-        const { name, surname } = errors;
+        const { name, surname, email, password, reEnterPassword } = errors;
         return (
             <div className="container">
                 <div className="card mt-2">
                     <div className="card-body">
                         <form>
                             <h2 className="text-center">Add User</h2>
-                            <div className="form-group">
-                                <label>Your name</label>
-                                <div className="input-group-append">
-                                    <span className="input-group-text"><FontAwesomeIcon icon={faUser} /></span>
-                                    <input className={name ? "form-control is-invalid" : 'form-control'} name="name" onChange={this.onChange} />
-                                    <div className="invalid-feedback ml-1">
-                                        {name}
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="form-group">
-                                <label>Surname</label>
-                                <div className="input-group-append">
-                                    <span className="input-group-text"><FontAwesomeIcon icon={faUser} /></span>
-                                    <input className={surname ? "form-control is-invalid" : "form-control"} name="surname" onChange={this.onChange} />
-                                    <div className="invalid-feedback ml-1">
-                                        {surname}
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="form-group">
-                                <label>Email</label>
-                                <div className="input-group-append">
-                                    <span className="input-group-text"><FontAwesomeIcon icon={faEnvelopeSquare} /></span>
-                                    <input className="form-control" name="email" onChange={this.onChange} />
-                                </div>
-                            </div>
-                            <div className="form-group">
-                                <label>Password</label>
-                                <div className="input-group-append">
-                                    <span className="input-group-text"><FontAwesomeIcon icon={faLock} /></span>
-                                    <input className="form-control" name="password" type="password" onChange={this.onChange} />
-                                </div>
-                            </div>
-                            <div className="form-group">
-                                <label>Re-enter password</label>
-                                <div className="input-group-append">
-                                    <span className="input-group-text"><FontAwesomeIcon icon={faLock} /></span>
-                                    <input className="form-control" name="reEnterPassword" type="password" onChange={this.onChange} />
-                                </div>
-                            </div>
+                            <Input name="name" label="name" error={name} onChange={this.onChange}></Input>
+                            <Input name="surname" label="surname" error={surname} onChange={this.onChange}></Input>
+                            <Input name="email" label="email" error={email} onChange={this.onChange}></Input>
+                            <Input name="password" label="password" error={password} onChange={this.onChange}></Input>
+                            <Input name="reEnterPassword" label="reEnterPassword" error={reEnterPassword} onChange={this.onChange}></Input>
+
                             <div className="text-center">
                                 <button disabled={pendingApiCall} className="btn btn-primary" onClick={this.onClickSignup}>Add User</button>
                             </div>
