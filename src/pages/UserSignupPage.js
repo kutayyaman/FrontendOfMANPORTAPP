@@ -23,6 +23,16 @@ class UserSignupPage extends React.Component {
         const { name, value } = event.target; //buna Object Destructuring deniyor. event.target'ın name ini al name degiskenine koy value'sunu al value degiskenine koy
         const errors = { ...this.state.errors } //... demek kopyasini olustur demek yani errors'un kopyasini olusturduk
         errors[name] = undefined;
+        if (name === "password" || name === "reEnterPassword") {
+            if (name === "password" && value !== this.state.reEnterPassword) {
+                errors.reEnterPassword = "Passwords must match"
+            }
+            else if (name === "reEnterPassword" && value !== this.state.password) {
+                errors.reEnterPassword = "Passwords must match"
+            } else {
+                errors.reEnterPassword = undefined;
+            }
+        }
         this.setState({ // render methodunu tekrar cagirir bu olay flutterda vardır.
             [name]: value,
             errors: errors //yukardaki errors aslinda state'deki errors'un kopyasi alinarak olusturulmustu simdi onu state icindeki errors'a koyduk
@@ -64,14 +74,14 @@ class UserSignupPage extends React.Component {
                     <div className="card-body">
                         <form>
                             <h2 className="text-center">Add User</h2>
-                            <Input name="name" label="name" error={name} onChange={this.onChange}></Input>
-                            <Input name="surname" label="surname" error={surname} onChange={this.onChange}></Input>
-                            <Input name="email" label="email" error={email} onChange={this.onChange}></Input>
-                            <Input name="password" label="password" error={password} onChange={this.onChange}></Input>
-                            <Input name="reEnterPassword" label="reEnterPassword" error={reEnterPassword} onChange={this.onChange}></Input>
+                            <Input name="name" label="Name" error={name} onChange={this.onChange} iconName={faUser}></Input>
+                            <Input name="surname" label="Surname" error={surname} onChange={this.onChange} iconName={faUser}></Input>
+                            <Input name="email" label="Email" error={email} onChange={this.onChange} iconName={faEnvelopeSquare}></Input>
+                            <Input name="password" label="Password" error={password} onChange={this.onChange} type="password" iconName={faLock}></Input>
+                            <Input name="reEnterPassword" label="Re-Enter-Password" error={reEnterPassword} onChange={this.onChange} type="password" iconName={faLock}></Input>
 
                             <div className="text-center">
-                                <button disabled={pendingApiCall} className="btn btn-primary" onClick={this.onClickSignup}>Add User</button>
+                                <button disabled={pendingApiCall || reEnterPassword !== undefined} className="btn btn-primary" onClick={this.onClickSignup}>Add User</button>
                             </div>
                             <div className="text-center mt-2">
                                 {pendingApiCall && //conditional rendering deniyor buna pendingApiCall dogruysa devamindaki calisir
