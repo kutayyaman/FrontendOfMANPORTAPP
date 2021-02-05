@@ -13,6 +13,7 @@ ReactDOM.render(
   <React.StrictMode>
     <LoginPage />
     <LanguageSelector />
+    <UserSignupPage></UserSignupPage>
   </React.StrictMode>,
   document.getElementById('root')
 );
