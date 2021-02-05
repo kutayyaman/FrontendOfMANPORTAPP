@@ -1,5 +1,5 @@
 import React from 'react';
-import { signup, changeBackendLanguage } from '../api/apiCalls';
+import { signup } from '../api/apiCalls';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelopeSquare, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import Input from '../components/input';
@@ -68,12 +68,6 @@ class UserSignupPage extends React.Component {
 
     }
 
-    onClickLanguage = language => {
-        const { i18n } = this.props;
-        i18n.changeLanguage(language);
-        changeBackendLanguage(language);
-    }
-
     render() { // Component'i inherit ettiğimiz için bunu override etmek zorundayız.
         const { pendingApiCall, errors } = this.state;
         const { name, surname, email, password, reEnterPassword } = errors;
@@ -102,10 +96,6 @@ class UserSignupPage extends React.Component {
 
                         </form>
                     </div>
-                </div>
-                <div>
-                    <img src="https://www.countryflags.io/tr/flat/24.png" alt="Turkish Flag" onClick={() => this.onClickLanguage('tr')} style={{ cursor: 'pointer' }}></img>
-                    <img src="https://www.countryflags.io/us/flat/24.png" alt="USA Flag" onClick={() => this.onClickLanguage('en')} style={{ cursor: 'pointer' }}></img>
                 </div>
             </div>
 

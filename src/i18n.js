@@ -12,7 +12,8 @@ i18n.use(initReactI18next).init({
                 'Surname': 'Surname',
                 'Email': 'Email',
                 'Password': 'Password',
-                'Re-Enter-Password': 'Re-Enter-Password'
+                'Re-Enter-Password': 'Re-Enter-Password',
+                'Login': 'Login'
             }
         },
         tr: {
@@ -24,7 +25,8 @@ i18n.use(initReactI18next).init({
                 'Surname': 'Soyad',
                 'Email': 'Mail adresi',
                 'Password': 'Şifre',
-                'Re-Enter-Password': 'Şifre tekrar'
+                'Re-Enter-Password': 'Şifre tekrar',
+                'Login': 'Giriş Yap'
             }
         }
     },
