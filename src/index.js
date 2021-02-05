@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import UserSignupPage from './pages/UserSignupPage';
 import './bootstrap-override.scss'
+import './i18n';
 
 ReactDOM.render(
   <React.StrictMode>

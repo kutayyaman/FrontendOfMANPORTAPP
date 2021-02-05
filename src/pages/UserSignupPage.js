@@ -1,8 +1,10 @@
 import React from 'react';
-import { signup } from '../api/apiCalls';
+import { signup, changeBackendLanguage } from '../api/apiCalls';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelopeSquare, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import Input from '../components/input';
+import { withTranslation } from 'react-i18next';
+
 
 class UserSignupPage extends React.Component {
 
@@ -17,6 +19,7 @@ class UserSignupPage extends React.Component {
     }
 
     onChange = (event) => {
+        const { t } = this.props;
         //const name = event.target.value;
         //const field = event.target.name;
         //bu yukardaki iki satır yerine Object Destructuring kullanalim
@@ -25,10 +28,10 @@ class UserSignupPage extends React.Component {
         errors[name] = undefined;
         if (name === "password" || name === "reEnterPassword") {
             if (name === "password" && value !== this.state.reEnterPassword) {
-                errors.reEnterPassword = "Passwords must match"
+                errors.reEnterPassword = t('Passwords must match')
             }
             else if (name === "reEnterPassword" && value !== this.state.password) {
-                errors.reEnterPassword = "Passwords must match"
+                errors.reEnterPassword = t('Passwords must match')
             } else {
                 errors.reEnterPassword = undefined;
             }
@@ -65,33 +68,44 @@ class UserSignupPage extends React.Component {
 
     }
 
+    onClickLanguage = language => {
+        const { i18n } = this.props;
+        i18n.changeLanguage(language);
+        changeBackendLanguage(language);
+    }
+
     render() { // Component'i inherit ettiğimiz için bunu override etmek zorundayız.
         const { pendingApiCall, errors } = this.state;
         const { name, surname, email, password, reEnterPassword } = errors;
+        const { t } = this.props;
         return (
             <div className="container">
                 <div className="card mt-2">
                     <div className="card-body">
                         <form>
-                            <h2 className="text-center">Add User</h2>
-                            <Input name="name" label="Name" error={name} onChange={this.onChange} iconName={faUser}></Input>
-                            <Input name="surname" label="Surname" error={surname} onChange={this.onChange} iconName={faUser}></Input>
-                            <Input name="email" label="Email" error={email} onChange={this.onChange} iconName={faEnvelopeSquare}></Input>
-                            <Input name="password" label="Password" error={password} onChange={this.onChange} type="password" iconName={faLock}></Input>
-                            <Input name="reEnterPassword" label="Re-Enter-Password" error={reEnterPassword} onChange={this.onChange} type="password" iconName={faLock}></Input>
+                            <h2 className="text-center">{t('Add User')}</h2>
+                            <Input name="name" label={t("Name")} error={name} onChange={this.onChange} iconName={faUser}></Input>
+                            <Input name="surname" label={t("Surname")} error={surname} onChange={this.onChange} iconName={faUser}></Input>
+                            <Input name="email" label={t("Email")} error={email} onChange={this.onChange} iconName={faEnvelopeSquare}></Input>
+                            <Input name="password" label={t("Password")} error={password} onChange={this.onChange} type="password" iconName={faLock}></Input>
+                            <Input name="reEnterPassword" label={t("Re-Enter-Password")} error={reEnterPassword} onChange={this.onChange} type="password" iconName={faLock}></Input>
 
                             <div className="text-center">
-                                <button disabled={pendingApiCall || reEnterPassword !== undefined} className="btn btn-primary" onClick={this.onClickSignup}>Add User</button>
+                                <button disabled={pendingApiCall || reEnterPassword !== undefined} className="btn btn-primary" onClick={this.onClickSignup}>{t('Add User')}</button>
                             </div>
                             <div className="text-center mt-2">
                                 {pendingApiCall && //conditional rendering deniyor buna pendingApiCall dogruysa devamindaki calisir
                                     <div className="spinner-border" role="status">
-                                        <span className="sr-only">Loading...</span>
+                                        <span className="sr-only">{t('Loading...')}</span>
                                     </div>}
                             </div>
 
                         </form>
                     </div>
+                </div>
+                <div>
+                    <img src="https://www.countryflags.io/tr/flat/24.png" alt="Turkish Flag" onClick={() => this.onClickLanguage('tr')} style={{ cursor: 'pointer' }}></img>
+                    <img src="https://www.countryflags.io/us/flat/24.png" alt="USA Flag" onClick={() => this.onClickLanguage('en')} style={{ cursor: 'pointer' }}></img>
                 </div>
             </div>
 
@@ -100,4 +114,4 @@ class UserSignupPage extends React.Component {
 
 }
 
-export default UserSignupPage;
+export default withTranslation()(UserSignupPage); //Higher Order Component denir buna.
