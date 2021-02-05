@@ -8,12 +8,15 @@ const Input = (props) => {
     return (
         <div className="form-group">
             <label>{label}</label>
-            <div className="input-group-append">
-                <span className="input-group-text"><FontAwesomeIcon icon={iconName} /></span>
-                <input className={className} name={name} onChange={onChange} type={type} />
-                <div className="invalid-feedback ml-1">
-                    {error}
+            <div className="form-group position-relative">
+                <div className="input-group">
+                    <span className="input-group-text"><FontAwesomeIcon icon={iconName} /></span>
+                    <input className={className} name={name} onChange={onChange} type={type} />
+                    <div className="invalid-feedback">
+                        {error}
+                    </div>
                 </div>
+
             </div>
         </div>
     );
