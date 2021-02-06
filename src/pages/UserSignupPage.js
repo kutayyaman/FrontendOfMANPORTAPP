@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelopeSquare, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import Input from '../components/input';
 import { withTranslation } from 'react-i18next';
-
+import ButtonWithProgress from '../components/ButtonWithProgress'
 
 class UserSignupPage extends React.Component {
 
@@ -15,7 +15,8 @@ class UserSignupPage extends React.Component {
         password: null,
         reEnterPassword: null,
         pendingApiCall: false,
-        errors: {}
+        errors: {},
+        message: null
     }
 
     onChange = (event) => {
@@ -52,10 +53,11 @@ class UserSignupPage extends React.Component {
             email: email,
             password: password
         }
-        this.setState({ pendingApiCall: true });
+        this.setState({ pendingApiCall: true, message: null });
 
         try {
             const response = await signup(body);
+            this.setState({ message: response.data.message })
         }
         catch (error) {
             if (error.response.data.validationErrors) { //validationErrors undefined degilse
@@ -69,7 +71,7 @@ class UserSignupPage extends React.Component {
     }
 
     render() { // Component'i inherit ettiğimiz için bunu override etmek zorundayız.
-        const { pendingApiCall, errors } = this.state;
+        const { pendingApiCall, errors, message } = this.state;
         const { name, surname, email, password, reEnterPassword } = errors;
         const { t } = this.props;
         return (
@@ -83,17 +85,10 @@ class UserSignupPage extends React.Component {
                             <Input name="email" label={t("Email")} error={email} onChange={this.onChange} iconName={faEnvelopeSquare}></Input>
                             <Input name="password" label={t("Password")} error={password} onChange={this.onChange} type="password" iconName={faLock}></Input>
                             <Input name="reEnterPassword" label={t("Re-Enter-Password")} error={reEnterPassword} onChange={this.onChange} type="password" iconName={faLock}></Input>
-
-                            <div className="text-center">
-                                <button disabled={pendingApiCall || reEnterPassword !== undefined} className="btn btn-primary" onClick={this.onClickSignup}>{t('Add User')}</button>
-                            </div>
-                            <div className="text-center mt-2">
-                                {pendingApiCall && //conditional rendering deniyor buna pendingApiCall dogruysa devamindaki calisir
-                                    <div className="spinner-border" role="status">
-                                        <span className="sr-only">{t('Loading...')}</span>
-                                    </div>}
-                            </div>
-
+                            <ButtonWithProgress onClick={this.onClickSignup} disabled={pendingApiCall || reEnterPassword !== undefined} pendingApiCall={pendingApiCall} text={t('Add User')} loading={t('Loading...')} />
+                            {message && <div class="alert alert-success" role="alert">
+                                {message}
+                            </div>}
                         </form>
                     </div>
                 </div>
