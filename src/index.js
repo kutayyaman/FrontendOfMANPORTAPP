@@ -1,20 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import UserSignupPage from './pages/UserSignupPage';
-import LoginPage from './pages/LoginPage';
 import './bootstrap-override.scss'
 import './i18n';
-import LanguageSelector from './components/LanguageSelector'
+import App from './container/App'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <LoginPage />
-    <LanguageSelector />
-    <UserSignupPage></UserSignupPage>
-  </React.StrictMode>,
+  <App></App>,
   document.getElementById('root')
 );
 

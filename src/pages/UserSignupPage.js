@@ -5,6 +5,7 @@ import { faEnvelopeSquare, faLock, faUser } from '@fortawesome/free-solid-svg-ic
 import Input from '../components/input';
 import { withTranslation } from 'react-i18next';
 import ButtonWithProgress from '../components/ButtonWithProgress'
+import { withApiProgress } from '../shared/ApiProgress';
 
 class UserSignupPage extends React.Component {
 
@@ -14,7 +15,6 @@ class UserSignupPage extends React.Component {
         email: null,
         password: null,
         reEnterPassword: null,
-        pendingApiCall: false,
         errors: {},
         message: null
     }
@@ -53,7 +53,6 @@ class UserSignupPage extends React.Component {
             email: email,
             password: password
         }
-        this.setState({ pendingApiCall: true, message: null });
 
         try {
             const response = await signup(body);
@@ -65,15 +64,14 @@ class UserSignupPage extends React.Component {
             }
         }
         finally {
-            this.setState({ pendingApiCall: false })
         }
 
     }
 
     render() { // Component'i inherit ettiğimiz için bunu override etmek zorundayız.
-        const { pendingApiCall, errors, message } = this.state;
+        const { errors, message } = this.state;
         const { name, surname, email, password, reEnterPassword } = errors;
-        const { t } = this.props;
+        const { t, pendingApiCall } = this.props;
         return (
             <div className="container">
                 <div className="card mt-2">
@@ -98,5 +96,6 @@ class UserSignupPage extends React.Component {
     }
 
 }
-
-export default withTranslation()(UserSignupPage); //Higher Order Component denir buna.
+const UserSignupPageWithTranslation = withTranslation()(UserSignupPage);
+const UserSignupPageWithApiProgress = withApiProgress(UserSignupPageWithTranslation, '/api/users');
+export default UserSignupPageWithApiProgress; //Higher Order Component denir buna.

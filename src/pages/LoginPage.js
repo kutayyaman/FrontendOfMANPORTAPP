@@ -2,32 +2,16 @@ import React, { Component } from 'react'
 import Input from '../components/input'
 import { withTranslation } from 'react-i18next';
 import { faEnvelopeSquare, faLock } from '@fortawesome/free-solid-svg-icons';
-import { login } from '../api/apiCalls'
-import axios from 'axios';
-import ButtonWithProgress from '../components/ButtonWithProgress'
+import { login } from '../api/apiCalls';
+import ButtonWithProgress from '../components/ButtonWithProgress';
+import { withApiProgress } from '../shared/ApiProgress';
 
 class LoginPage extends Component {
     state = {
         mail: null,
         password: null,
-        error: null,
-        pendingApiCall: null
+        error: null
     };
-
-    componentDidMount() {//component ilk yuklendigi zaman calisan bir methoddur yani LoginPage componenti yuklenirken
-        axios.interceptors.request.use((request) => {
-            this.setState({ pendingApiCall: true })
-            return request;
-        });
-
-        axios.interceptors.response.use((response) => {
-            this.setState({ pendingApiCall: false });
-            return response;
-        }, (error) => {
-            this.setState({ pendingApiCall: false });
-            throw error;
-        })
-    }
 
     onChange = event => {
         const { name, value } = event.target;
@@ -58,8 +42,8 @@ class LoginPage extends Component {
     }
 
     render() {
-        const { t } = this.props;
-        const { error, mail, password, pendingApiCall } = this.state;
+        const { t, pendingApiCall } = this.props;
+        const { error, mail, password } = this.state;
         const buttonDisabled = !mail || !password;
         return (
             <div className="container">
@@ -80,5 +64,6 @@ class LoginPage extends Component {
         )
     }
 }
-
-export default withTranslation()(LoginPage); //Higher Order Component denir buna.
+const LoginPageWithTranslation = withTranslation()(LoginPage);
+const LoginPageWithApiProgress = withApiProgress(LoginPageWithTranslation, '/api/auth');
+export default LoginPageWithApiProgress; //Higher Order Component denir buna.
