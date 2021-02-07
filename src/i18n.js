@@ -13,7 +13,13 @@ i18n.use(initReactI18next).init({
                 'Email': 'Email',
                 'Password': 'Password',
                 'Re-Enter-Password': 'Re-Enter-Password',
-                'Login': 'Login'
+                'Login': 'Login',
+                'Home': 'Home',
+                'Dashboard': 'Dashboard',
+                'Management': 'Management',
+                'Issues': 'Issues',
+                'Links': 'Links',
+                'Language': 'Language'
             }
         },
         tr: {
@@ -26,7 +32,13 @@ i18n.use(initReactI18next).init({
                 'Email': 'Mail adresi',
                 'Password': 'Şifre',
                 'Re-Enter-Password': 'Şifre tekrar',
-                'Login': 'Giriş Yap'
+                'Login': 'Giriş Yap',
+                'Home': 'Anasayfa',
+                'Dashboard': 'Panel',
+                'Management': 'Yönetim',
+                'Issues': 'Sorunlar',
+                'Links': 'Linkler',
+                'Language': 'Dil'
             }
         }
     },
