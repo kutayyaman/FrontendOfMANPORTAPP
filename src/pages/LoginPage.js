@@ -24,6 +24,7 @@ class LoginPage extends Component {
     onClickLogin = async event => {
         event.preventDefault();
         const { mail, password, error } = this.state;
+        const { push } = this.props.history; //bu history'i bize Route componenti sagliyor bu Route componentini App.js icerisinde kullanmistik
         this.setState({
             error: null
         })
@@ -33,6 +34,7 @@ class LoginPage extends Component {
         }
         try {
             await login(creds);
+            push('/');
         } catch (errorFromBackend) {
             this.setState({
                 error: errorFromBackend.response.data.message
