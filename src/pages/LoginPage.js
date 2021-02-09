@@ -5,8 +5,11 @@ import { faEnvelopeSquare, faLock } from '@fortawesome/free-solid-svg-icons';
 import { login } from '../api/apiCalls';
 import ButtonWithProgress from '../components/ButtonWithProgress';
 import { withApiProgress } from '../shared/ApiProgress';
+import { Authentication } from '../shared/AuthenticationContext';
 
 class LoginPage extends Component {
+    static contextType = Authentication;
+
     state = {
         mail: null,
         password: null,
@@ -33,7 +36,17 @@ class LoginPage extends Component {
             password: password
         }
         try {
-            await login(creds);
+            const response = await login(creds);
+            const { name, surname } = response.data;
+            const authState = {
+                mail: mail,
+                name: name,
+                surname: surname,
+                password: password,
+
+
+            }
+            this.context.onLoginSuccess(authState); //bu methodu App.js'den buraya prop olarak yollamistik
             push('/');
         } catch (errorFromBackend) {
             this.setState({

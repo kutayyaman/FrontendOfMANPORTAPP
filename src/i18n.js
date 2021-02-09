@@ -19,7 +19,8 @@ i18n.use(initReactI18next).init({
                 'Management': 'Management',
                 'Issues': 'Issues',
                 'Links': 'Links',
-                'Language': 'Language'
+                'Language': 'Language',
+                'Logout': 'Logout'
             }
         },
         tr: {
@@ -38,7 +39,8 @@ i18n.use(initReactI18next).init({
                 'Management': 'Yönetim',
                 'Issues': 'Sorunlar',
                 'Links': 'Linkler',
-                'Language': 'Dil'
+                'Language': 'Dil',
+                'Logout': 'Çıkış Yap'
             }
         }
     },

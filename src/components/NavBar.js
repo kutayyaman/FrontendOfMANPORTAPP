@@ -7,13 +7,51 @@ import 'bootstrap/dist/js/bootstrap.js';
 import $ from 'jquery';
 import Popper from 'popper.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faSignInAlt, faSignOutAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import LanguageSelector from '../components/LanguageSelector';
+import { Authentication } from '../shared/AuthenticationContext';
 
 
 class NavBar extends Component {
+    static contextType = Authentication;
+
     render() {
         const { t } = this.props;
+        const { state, onLogoutSuccess } = this.context;
+        const { isLoggedIn, mail } = state;
+        let changeableLinks = ( //let block scope ozelligi tasir var ise function scope ozelligi tasir.
+            <ul className="navbar-nav ml-auto" >
+                <li className="nav-item">
+                    <Link className="nav-link" to="/login">
+                        <span className="mr-1">{t('Login')}</span>
+                        <FontAwesomeIcon icon={faSignInAlt} />
+                    </Link>
+                </li>
+
+                <li className="nav-item">
+                    <Link className="nav-link" to="/signup">
+                        <span className="mr-1">{t('Add User')}</span>
+                        <FontAwesomeIcon icon={faUserPlus} />
+                    </Link>
+                </li>
+            </ul>);
+
+        if (isLoggedIn) {
+            changeableLinks = (
+                <ul className="navbar-nav ml-auto" >
+                    <li className="nav-item mt-2">
+                        <span className="mr-1">{mail}</span>
+                    </li>
+
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/login" onClick={onLogoutSuccess}>
+                            <span className="mr-1">{t('Logout')}</span>
+                            <FontAwesomeIcon icon={faSignOutAlt} />
+                        </Link>
+                    </li>
+                </ul>);
+        }
+
         return (
             <div className="shadow-sm mb-2">
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -47,27 +85,14 @@ class NavBar extends Component {
                                 </div>
                             </li>
                         </ul>
-                        <ul className="navbar-nav ml-auto">
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/login">
-                                    <span className="mr-1">{t('Login')}</span>
-                                    <FontAwesomeIcon icon={faSignInAlt} />
-                                </Link>
-                            </li>
+                        {changeableLinks}
 
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/signup">
-                                    <span className="mr-1">{t('Add User')}</span>
-                                    <FontAwesomeIcon icon={faUserPlus} />
-                                </Link>
-                            </li>
-                        </ul>
                     </div>
 
 
                 </nav>
             </div>
-        )
+        );
     }
 }
 
