@@ -5,10 +5,10 @@ import { faEnvelopeSquare, faLock } from '@fortawesome/free-solid-svg-icons';
 import { login } from '../api/apiCalls';
 import ButtonWithProgress from '../components/ButtonWithProgress';
 import { withApiProgress } from '../shared/ApiProgress';
-import { Authentication } from '../shared/AuthenticationContext';
+//import { Authentication } from '../shared/AuthenticationContext';
 
 class LoginPage extends Component {
-    static contextType = Authentication;
+    //static contextType = Authentication;
 
     state = {
         mail: null,
@@ -27,6 +27,7 @@ class LoginPage extends Component {
     onClickLogin = async event => {
         event.preventDefault();
         const { mail, password, error } = this.state;
+        const onLoginSuccess = () => { } //burasi degisecek
         const { push } = this.props.history; //bu history'i bize Route componenti sagliyor bu Route componentini App.js icerisinde kullanmistik
         this.setState({
             error: null
@@ -46,7 +47,7 @@ class LoginPage extends Component {
 
 
             }
-            this.context.onLoginSuccess(authState); //bu methodu App.js'den buraya prop olarak yollamistik
+            onLoginSuccess(authState);
             push('/');
         } catch (errorFromBackend) {
             this.setState({

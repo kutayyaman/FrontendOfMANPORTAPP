@@ -5,13 +5,13 @@ import HomePage from '../pages/HomePage';
 import DashboardPage from '../pages/DashboardPage';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import NavBar from '../components/NavBar'
-import { Authentication } from '../shared/AuthenticationContext';
+//import { Authentication } from '../shared/AuthenticationContext';
 //HashRouter kullanarak uygulamayi single page application haline getirmis olduk.
 class App extends Component {
-  static contextType = Authentication;
+  //static contextType = Authentication;
 
   render() {
-    const isLoggedIn = this.context.state.isLoggedIn;
+    const isLoggedIn = false; //burasi duzeltilcek 
 
     return (
       <div>

@@ -9,16 +9,19 @@ import Popper from 'popper.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt, faSignOutAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import LanguageSelector from '../components/LanguageSelector';
-import { Authentication } from '../shared/AuthenticationContext';
+//import { Authentication } from '../shared/AuthenticationContext';
 
 
 class NavBar extends Component {
-    static contextType = Authentication;
+    //static contextType = Authentication;
 
     render() {
         const { t } = this.props;
-        const { state, onLogoutSuccess } = this.context;
-        const { isLoggedIn, mail } = state;
+
+        const onLogoutSuccess = () => { }//buralar duzeltilcek
+        const isLoggedIn = false;
+        const mail = undefined;
+
         let changeableLinks = ( //let block scope ozelligi tasir var ise function scope ozelligi tasir.
             <ul className="navbar-nav ml-auto" >
                 <li className="nav-item">
