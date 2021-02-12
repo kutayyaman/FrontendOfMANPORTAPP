@@ -10,17 +10,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt, faSignOutAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import LanguageSelector from '../components/LanguageSelector';
 //import { Authentication } from '../shared/AuthenticationContext';
-
+import { connect } from 'react-redux';
+import { logoutSuccess } from '../redux/authActions';
 
 class NavBar extends Component {
     //static contextType = Authentication;
 
     render() {
-        const { t } = this.props;
-
-        const onLogoutSuccess = () => { }//buralar duzeltilcek
-        const isLoggedIn = false;
-        const mail = undefined;
+        const { t, isLoggedIn, mail, name, password, surname, onLogoutSuccess } = this.props;
 
         let changeableLinks = ( //let block scope ozelligi tasir var ise function scope ozelligi tasir.
             <ul className="navbar-nav ml-auto" >
@@ -59,8 +56,8 @@ class NavBar extends Component {
             <div className="shadow-sm mb-2">
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
                     <Link className="navbar-brand" to="/">MANPORT</Link>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className=" navbar-collapse collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav mr-auto">
@@ -99,4 +96,23 @@ class NavBar extends Component {
     }
 }
 
-export default withTranslation()(NavBar);
+const TopBarWithTranslation = withTranslation()(NavBar);
+const mapStateToProps = (store) => {
+    return {
+        isLoggedIn: store.isLoggedIn,
+        mail: store.mail,
+        name: store.name,
+        password: store.password,
+        surname: store.surname
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onLogoutSuccess: () => {
+            return dispatch(logoutSuccess());
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TopBarWithTranslation);

@@ -6,11 +6,15 @@ import './bootstrap-override.scss'
 import './i18n';
 import App from './container/App'
 //import AuthenticationContext from './shared/AuthenticationContext';
+import { Provider } from 'react-redux';
+import configureStore from './redux/configureStore';
+
+const store = configureStore();
 
 ReactDOM.render(
-  //<AuthenticationContext>
-  <App></App>,
-  //</AuthenticationContext>,
+  <Provider store={store}>
+    <App></App>
+  </Provider>,
   document.getElementById('root')
 );
 
