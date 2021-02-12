@@ -5,10 +5,10 @@ import { faEnvelopeSquare, faLock } from '@fortawesome/free-solid-svg-icons';
 import { login } from '../api/apiCalls';
 import ButtonWithProgress from '../components/ButtonWithProgress';
 import { withApiProgress } from '../shared/ApiProgress';
-//import { Authentication } from '../shared/AuthenticationContext';
+import { connect } from 'react-redux';
+import { loginSuccess } from '../redux/authActions';
 
 class LoginPage extends Component {
-    //static contextType = Authentication;
 
     state = {
         mail: null,
@@ -27,7 +27,6 @@ class LoginPage extends Component {
     onClickLogin = async event => {
         event.preventDefault();
         const { mail, password, error } = this.state;
-        const onLoginSuccess = () => { } //burasi degisecek
         const { push } = this.props.history; //bu history'i bize Route componenti sagliyor bu Route componentini App.js icerisinde kullanmistik
         this.setState({
             error: null
@@ -43,11 +42,9 @@ class LoginPage extends Component {
                 mail: mail,
                 name: name,
                 surname: surname,
-                password: password,
-
-
+                password: password
             }
-            onLoginSuccess(authState);
+            this.props.onLoginSuccess(authState);
             push('/');
         } catch (errorFromBackend) {
             this.setState({
@@ -82,4 +79,13 @@ class LoginPage extends Component {
 }
 const LoginPageWithTranslation = withTranslation()(LoginPage);
 const LoginPageWithApiProgress = withApiProgress(LoginPageWithTranslation, '/api/auth');
-export default LoginPageWithApiProgress; //Higher Order Component denir buna.
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onLoginSuccess: (authState) => {
+            return dispatch(loginSuccess(authState));
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(LoginPageWithApiProgress); //Higher Order Component denir buna.

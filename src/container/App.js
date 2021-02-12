@@ -5,13 +5,13 @@ import HomePage from '../pages/HomePage';
 import DashboardPage from '../pages/DashboardPage';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import NavBar from '../components/NavBar'
-//import { Authentication } from '../shared/AuthenticationContext';
 //HashRouter kullanarak uygulamayi single page application haline getirmis olduk.
+import { connect } from 'react-redux';
+
 class App extends Component {
-  //static contextType = Authentication;
 
   render() {
-    const isLoggedIn = false; //burasi duzeltilcek 
+    const { isLoggedIn } = this.props;
 
     return (
       <div>
@@ -31,4 +31,11 @@ class App extends Component {
 
 }
 
-export default App;
+
+const mapStateToProps = (store) => {
+  return {
+    isLoggedIn: store.isLoggedIn
+  };
+};
+
+export default connect(mapStateToProps)(App);
