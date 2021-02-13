@@ -1,11 +1,12 @@
 import React from 'react';
 import { changeBackendLanguage } from '../api/apiCalls';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 const LanguageSelector = (props) => {
 
+    const { i18n } = useTranslation();
+
     const onClickLanguage = language => {
-        const { i18n } = props;
         i18n.changeLanguage(language);
         changeBackendLanguage(language);
     }
@@ -18,4 +19,4 @@ const LanguageSelector = (props) => {
     );
 };
 
-export default withTranslation()(LanguageSelector); //Higher Order Component denir buna.
+export default LanguageSelector;

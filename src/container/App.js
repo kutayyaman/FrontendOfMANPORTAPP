@@ -6,36 +6,30 @@ import DashboardPage from '../pages/DashboardPage';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import NavBar from '../components/NavBar'
 //HashRouter kullanarak uygulamayi single page application haline getirmis olduk.
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-class App extends Component {
+const App = () => {
 
-  render() {
-    const { isLoggedIn } = this.props;
+  const { isLoggedIn } = useSelector((store) => { //redux store'daki bilgileri cekiyoruz
+    return {
+      isLoggedIn: store.isLoggedIn,
+    };
+  });
 
-    return (
-      <div>
-        <Router>
-          <NavBar></NavBar>
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            {!isLoggedIn && <Route path="/login" component={LoginPageWithApiProgress} />}
-            <Route path="/signup" component={UserSignupPageWithApiProgress} />
-            <Route path="/dashboard" component={DashboardPage} />
-            <Redirect to="/" />
-          </Switch>
-        </Router>
-      </div> //eger parametre alan bir path tanimlamak isteseydik "<Route path="/user/:email" component={ComponentName} />" bunun gibi yapardik.
-    );
-  }
-
+  return (
+    <div>
+      <Router>
+        <NavBar></NavBar>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          {!isLoggedIn && <Route path="/login" component={LoginPageWithApiProgress} />}
+          <Route path="/signup" component={UserSignupPageWithApiProgress} />
+          <Route path="/dashboard" component={DashboardPage} />
+          <Redirect to="/" />
+        </Switch>
+      </Router>
+    </div> //eger parametre alan bir path tanimlamak isteseydik "<Route path="/user/:email" component={ComponentName} />" bunun gibi yapardik.
+  );
 }
 
-
-const mapStateToProps = (store) => {
-  return {
-    isLoggedIn: store.isLoggedIn
-  };
-};
-
-export default connect(mapStateToProps)(App);
+export default App;

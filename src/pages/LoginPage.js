@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Input from '../components/input'
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { faEnvelopeSquare, faLock } from '@fortawesome/free-solid-svg-icons';
 import { login } from '../api/apiCalls';
 import ButtonWithProgress from '../components/ButtonWithProgress';
 import { withApiProgress } from '../shared/ApiProgress';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../redux/authActions';
 
 const LoginPage = (props) => {
@@ -13,6 +13,8 @@ const LoginPage = (props) => {
     const [mail, setMail] = useState();
     const [password, setpassword] = useState();
     const [error, setError] = useState();
+
+    const dispatch = useDispatch();
 
     useEffect(() => { //mail veya passwordde bir degisiklik olursa error'u undefined yap dedik.
         setError(undefined);
@@ -36,7 +38,7 @@ const LoginPage = (props) => {
                 surname: surname,
                 password: password
             }
-            props.onLoginSuccess(authState);
+            dispatch(loginSuccess(authState));
             push('/');
         } catch (errorFromBackend) {
             setError(errorFromBackend.response.data.message);
@@ -44,8 +46,8 @@ const LoginPage = (props) => {
 
     };
 
-
-    const { t, pendingApiCall } = props;
+    const { t } = useTranslation();
+    const { pendingApiCall } = props;
     const buttonDisabled = !mail || !password;
     return (
         <div className="container">
@@ -66,15 +68,5 @@ const LoginPage = (props) => {
     )
 
 }
-const LoginPageWithTranslation = withTranslation()(LoginPage);
-const LoginPageWithApiProgress = withApiProgress(LoginPageWithTranslation, '/api/auth');
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onLoginSuccess: (authState) => {
-            return dispatch(loginSuccess(authState));
-        }
-    }
-}
-
-export default connect(null, mapDispatchToProps)(LoginPageWithApiProgress); //Higher Order Component denir buna.
+const LoginPageWithApiProgress = withApiProgress(LoginPage, '/api/auth');//Higher Order Component denir buna.
+export default (LoginPageWithApiProgress); 
