@@ -1,48 +1,46 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect, useState } from 'react';
 import axios from 'axios';
 
-function getDisplayName(WrappedComponent) {
-    return WrappedComponent.displayName || WrappedComponent.name || 'Component';
-}
+export const useApiProgress = (apiPath) => {
+    const [pendingApiCall, setpendingApiCall] = useState(false);
 
-export function withApiProgress(WrappedComponent, apiPath) {
-    return class extends Component {
-        //static displayName = 'ApiProgress('+getDisplayName(WrappedComponent)+')';
-        static displayName = `ApiProgress(${getDisplayName(WrappedComponent)})`;
-        state = {
-            pendingApiCall: null
+    useEffect(() => {
+        let requestInterceptor, responseInterceptor;
+        const updateApiCallFor = (url, inProgress) => {
+            if (url === apiPath) {
+                setpendingApiCall(inProgress)
+            }
         }
-
-        componentDidMount() {//component ilk yuklendigi zaman calisan bir methoddur yani LoginPage componenti yuklenirken
-            this.requestInterceptor = axios.interceptors.request.use((request) => {
-                this.updateApiCallFor(request.url, true);
+        const registerInterceptors = () => {
+            requestInterceptor = axios.interceptors.request.use((request) => {
+                updateApiCallFor(request.url, true);
                 return request;
             });
 
-            this.responseInterceptor = axios.interceptors.response.use((response) => {
-                this.updateApiCallFor(response.config.url, false);
+            responseInterceptor = axios.interceptors.response.use((response) => {
+                updateApiCallFor(response.config.url, false);
 
                 return response;
             }, (error) => {
-                this.updateApiCallFor(error.config.url, false);
+                updateApiCallFor(error.config.url, false);
                 throw error;
             })
         }
-
-        componentWillUnmount() {
-            axios.interceptors.request.eject(this.requestInterceptor);
-            axios.interceptors.response.eject(this.responseInterceptor);
+        const unregisterInterceptors = () => {
+            axios.interceptors.request.eject(requestInterceptor);
+            axios.interceptors.response.eject(responseInterceptor);
         }
 
-        updateApiCallFor = (url, inProgress) => {
-            if (url === apiPath) {
-                this.setState({ pendingApiCall: inProgress });
-            }
-        }
+        registerInterceptors();
 
-        render() {
-            const { pendingApiCall } = this.state;
-            return <WrappedComponent pendingApiCall={pendingApiCall} {...this.props}></WrappedComponent> //pendingApiCall degiskenini bizim sarmalayacagimiz componente parametre olarak verdik.
-        }                                                                                                 //{..this.props} yaparak bu componentteki butun propslarin kopyasini sarmalanan componente kopyalanmis halini gondermis olduk
-    }
+        return function unmount() {
+            unregisterInterceptors();
+        }
+    });
+
+    return pendingApiCall;
+}
+
+function getDisplayName(WrappedComponent) {
+    return WrappedComponent.displayName || WrappedComponent.name || 'Component';
 }

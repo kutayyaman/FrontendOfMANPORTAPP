@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { faEnvelopeSquare, faLock } from '@fortawesome/free-solid-svg-icons';
 import { login } from '../api/apiCalls';
 import ButtonWithProgress from '../components/ButtonWithProgress';
-import { withApiProgress } from '../shared/ApiProgress';
+import { useApiProgress } from '../shared/ApiProgress';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../redux/authActions';
 
@@ -47,7 +47,7 @@ const LoginPage = (props) => {
     };
 
     const { t } = useTranslation();
-    const { pendingApiCall } = props;
+    const pendingApiCall = useApiProgress('/api/auth');
     const buttonDisabled = !mail || !password;
     return (
         <div className="container">
@@ -68,5 +68,4 @@ const LoginPage = (props) => {
     )
 
 }
-const LoginPageWithApiProgress = withApiProgress(LoginPage, '/api/auth');//Higher Order Component denir buna.
-export default (LoginPageWithApiProgress); 
+export default LoginPage; 

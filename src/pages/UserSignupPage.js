@@ -4,7 +4,7 @@ import { faEnvelopeSquare, faLock, faUser } from '@fortawesome/free-solid-svg-ic
 import Input from '../components/input';
 import { useTranslation } from 'react-i18next';
 import ButtonWithProgress from '../components/ButtonWithProgress'
-import { withApiProgress } from '../shared/ApiProgress';
+import { useApiProgress } from '../shared/ApiProgress';
 
 const UserSignupPage = (props) => {
 
@@ -66,7 +66,7 @@ const UserSignupPage = (props) => {
     const { t } = useTranslation();
     const { name: nameError, surname: surnameError, email: emailError, password: passwordError } = errors;
     //yukarda biz name, surname gibi degiskenlere zaten bu fonksiyon icerisinde sahip oldugumuz icin error icerisindeki name degiskenini nameError isimli bir degiskene ata demis olduk
-    const { pendingApiCall } = props;
+    const pendingApiCall = useApiProgress('/api/users');
 
     let reEnterPasswordError;
     if (form.password !== form.reEnterPassword) {
@@ -96,5 +96,4 @@ const UserSignupPage = (props) => {
     );
 };
 
-const UserSignupPageWithApiProgress = withApiProgress(UserSignupPage, '/api/users'); //Higher Order Component denir buna.
-export default UserSignupPageWithApiProgress; 
+export default UserSignupPage; 
