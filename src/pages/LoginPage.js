@@ -14,7 +14,7 @@ const LoginPage = (props) => {
     const [password, setpassword] = useState();
     const [error, setError] = useState();
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch(); //action olusturmak icin kullanicaz yani redux ile alakali
 
     useEffect(() => { //mail veya passwordde bir degisiklik olursa error'u undefined yap dedik.
         setError(undefined);
@@ -58,9 +58,11 @@ const LoginPage = (props) => {
                         <Input label={t("Email")} iconName={faEnvelopeSquare} onChange={(event) => { setMail(event.target.value); }} />
                         <Input label={t("Password")} type="password" iconName={faLock} onChange={(event) => { setpassword(event.target.value) }} />
                         <ButtonWithProgress onClick={onClickLogin} disabled={buttonDisabled || pendingApiCall} pendingApiCall={pendingApiCall} text={t('Login')} loading={t('Loading...')} />
-                        {error && <div className="alert alert-warning mt-1">
-                            {error}
-                        </div>}
+                        {error &&
+                            <div className="alert alert-warning mt-1">
+                                {error}
+                            </div>
+                        }
                     </form>
                 </div>
             </div>

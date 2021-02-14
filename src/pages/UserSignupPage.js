@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { signup } from '../api/apiCalls';
 import { faEnvelopeSquare, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import Input from '../components/input';

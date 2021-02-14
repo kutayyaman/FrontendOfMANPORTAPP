@@ -11,7 +11,8 @@ const ButtonWithProgress = (props) => {
                 {pendingApiCall && //conditional rendering deniyor buna pendingApiCall dogruysa devamindaki calisir
                     <div className="spinner-border" role="status">
                         <span className="sr-only">{loading}</span>
-                    </div>}
+                    </div>
+                }
             </div>
         </div>
 

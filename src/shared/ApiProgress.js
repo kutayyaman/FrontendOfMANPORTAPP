@@ -4,7 +4,7 @@ import axios from 'axios';
 export const useApiProgress = (apiPath) => {
     const [pendingApiCall, setpendingApiCall] = useState(false);
 
-    useEffect(() => {
+    useEffect(() => { // bu hook yuklendigi zaman calisacak.
         let requestInterceptor, responseInterceptor;
         const updateApiCallFor = (url, inProgress) => {
             if (url === apiPath) {
@@ -39,8 +39,4 @@ export const useApiProgress = (apiPath) => {
     });
 
     return pendingApiCall;
-}
-
-function getDisplayName(WrappedComponent) {
-    return WrappedComponent.displayName || WrappedComponent.name || 'Component';
 }
