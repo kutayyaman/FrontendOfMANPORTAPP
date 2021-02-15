@@ -20,7 +20,8 @@ i18n.use(initReactI18next).init({
                 'Issues': 'Issues',
                 'Links': 'Links',
                 'Language': 'Language',
-                'Logout': 'Logout'
+                'Logout': 'Logout',
+                'Last Issues': 'Last Issues'
             }
         },
         tr: {
@@ -40,7 +41,8 @@ i18n.use(initReactI18next).init({
                 'Issues': 'Sorunlar',
                 'Links': 'Linkler',
                 'Language': 'Dil',
-                'Logout': 'Çıkış Yap'
+                'Logout': 'Çıkış Yap',
+                'Last Issues': 'Son Hatalar'
             }
         }
     },

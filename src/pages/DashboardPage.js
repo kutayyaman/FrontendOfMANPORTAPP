@@ -1,9 +1,10 @@
 import React from 'react';
+import Top3IssuesLıst from '../components/Top3IssuesLıst';
 
 const DashboardPage = () => {
     return (
         <div className="container">
-            DashboardPage
+            <Top3IssuesLıst />
         </div>
     );
 };
