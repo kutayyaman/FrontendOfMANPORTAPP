@@ -21,7 +21,8 @@ i18n.use(initReactI18next).init({
                 'Links': 'Links',
                 'Language': 'Language',
                 'Logout': 'Logout',
-                'Last Issues': 'Last Issues'
+                'Last Issues': 'Last Issues',
+                'Something Went Wrong': 'Something Went Wrong'
             }
         },
         tr: {
@@ -42,7 +43,8 @@ i18n.use(initReactI18next).init({
                 'Links': 'Linkler',
                 'Language': 'Dil',
                 'Logout': 'Çıkış Yap',
-                'Last Issues': 'Son Hatalar'
+                'Last Issues': 'Son Hatalar',
+                'Something Went Wrong': 'Bir şeyler yanlış gitti'
             }
         }
     },

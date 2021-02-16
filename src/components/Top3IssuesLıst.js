@@ -2,14 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { getTop3Issues } from '../api/apiCalls';
 import { useTranslation } from 'react-i18next';
 import Top3IssueLıstItem from './Top3IssueLıstItem';
+import { useApiProgress } from '../shared/ApiProgress';
 
 const Top3IssuesLıst = () => { //bu bir hook oldu artik
     const [issues, setissues] = useState([]);
+    const [loadFailure, setloadFailure] = useState(false);
 
-    useEffect(() => {
-        getTop3Issues().then(response => {
+    const pendingApiCall = useApiProgress('/api/issue/top3'); //bu useEffect'den once yazilmali yoksa calismaz cunku useEffect'in altinda bir yere yazsaydik istek atildiktan sonra bu calisirdi ve gec kalmis olurduk
+
+    useEffect(async () => {
+        try {
+            setloadFailure(false);
+            const response = await getTop3Issues();
             setissues(response.data);
-        })
+        } catch (error) {
+            setloadFailure(true);
+        }
     }, []); //ikinci parametresini [] boyle verince componentDidMount gibi calisiyor.
 
     const { t } = useTranslation();
@@ -24,6 +32,15 @@ const Top3IssuesLıst = () => { //bu bir hook oldu artik
                         <Top3IssueLıstItem issue={issue} key={issue.id} />
                     )
                 })}
+                <div className="text-center mt-2">
+                    {pendingApiCall && //conditional rendering deniyor buna pendingApiCall dogruysa devamindaki calisir
+                        <div className="spinner-border" role="status">
+                            <span className="sr-only"></span>
+                        </div>
+                    }
+                    {loadFailure == true &&
+                        <div className="text-center text-danger">{t('Something Went Wrong')}</div>}
+                </div>
             </div>
         </div>
     )

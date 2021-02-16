@@ -7,7 +7,7 @@ export const useApiProgress = (apiPath) => { //buda bir hook artik
     useEffect(() => { // bu hook yuklendigi zaman calisacak.
         let requestInterceptor, responseInterceptor;
         const updateApiCallFor = (url, inProgress) => {
-            if (url === apiPath) {
+            if (url.startsWith(apiPath)) {
                 setpendingApiCall(inProgress)
             }
         }
