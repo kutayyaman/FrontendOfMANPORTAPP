@@ -1,6 +1,7 @@
 import { createStore } from 'redux';
 import authReducer from './authReducer';
 import SecureLS from 'secure-ls';
+import { setAuthorizationHeader } from '../api/apiCalls';
 
 const secureLs = new SecureLS();
 
@@ -32,10 +33,14 @@ const updateStateInLocalStorage = newState => {
 }
 
 const configureStore = () => {
-    const store = createStore(authReducer, getStateFromLocalStorage(), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()); //2. parametremiz baslangic state'imiz oluyor.
+    const initialState = getStateFromLocalStorage();
+    const { mail, password, isLoggedIn } = initialState;
+    setAuthorizationHeader({ mail, password, isLoggedIn }); // bunu yapalimki her istek yolladigimizda authorization bilgilerini header'a koymak zorunda olmayalim.
+    const store = createStore(authReducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()); //2. parametremiz baslangic state'imiz oluyor.
 
     store.subscribe(() => { //store'da her degisim oldugu zaman bu calisacak bir method yaziyoruz.
         updateStateInLocalStorage(store.getState());
+        setAuthorizationHeader(store.getState()); //bunuda yapalimki storedaki kullanici bilgileri her degistiginde headerimizdaki authrozation bilgileride degissin yani guncel kalsin
     })
 
     return store;
