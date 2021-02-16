@@ -1,39 +1,32 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getTop3Issues } from '../api/apiCalls';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import Top3IssueLıstItem from './Top3IssueLıstItem';
 
-class Top3IssuesLıst extends Component {
-    state = {
-        issues: []
-    }
+const Top3IssuesLıst = () => { //bu bir hook oldu artik
+    const [issues, setissues] = useState([]);
 
-    componentDidMount() {
+    useEffect(() => {
         getTop3Issues().then(response => {
-            this.setState({
-                issues: response.data
-            })
+            setissues(response.data);
         })
-    }
+    }, []); //ikinci parametresini [] boyle verince componentDidMount gibi calisiyor.
 
-    render() {
-        const { issues } = this.state;
-        const { t } = this.props;
-        return (
-            <div className="container">
-                <div className="card bg-light w-50 container">
-                    <h6>
-                        {t('Last Issues')}
-                    </h6>
-                    {issues.map((issue, index) => { //burada span'in rengi issue'nin sorununun ciddilige gore farklilik gosterecek sekilde ayarlanmali
-                        return (
-                            <div key={issue.id}>
-                                {`${issue.createdDate} -->`} <span className="text-danger">{`${issue.applicationShortName} - ${issue.applicationFullName}`}</span> {` : ${issue.jobName}`}
-                            </div>)
-                    })}
-                </div>
+    const { t } = useTranslation();
+    return (
+        <div className="container">
+            <div className="card bg-light w-50 container">
+                <h6>
+                    {t('Last Issues')}
+                </h6>
+                {issues.map((issue, index) => { //burada span'in rengi issue'nin sorununun ciddilige gore farklilik gosterecek sekilde ayarlanmali
+                    return (
+                        <Top3IssueLıstItem issue={issue} key={issue.id} />
+                    )
+                })}
             </div>
-        )
-    }
+        </div>
+    )
 }
 
-export default withTranslation()(Top3IssuesLıst);
+export default Top3IssuesLıst;

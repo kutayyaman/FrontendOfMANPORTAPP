@@ -1,7 +1,7 @@
 import React, { Component, useEffect, useState } from 'react';
 import axios from 'axios';
 
-export const useApiProgress = (apiPath) => {
+export const useApiProgress = (apiPath) => { //buda bir hook artik
     const [pendingApiCall, setpendingApiCall] = useState(false);
 
     useEffect(() => { // bu hook yuklendigi zaman calisacak.
@@ -36,7 +36,7 @@ export const useApiProgress = (apiPath) => {
         return function unmount() {
             unregisterInterceptors();
         }
-    });
+    }, []); //ikinci parametreyi dizi olarak vermeseydim sadece yuklendiginde degil sayfada her degisim oldugunda calisirdi mesela kullanici adini girdigimde her harfe bastigimda calisirdi
 
     return pendingApiCall;
 }
