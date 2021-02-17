@@ -6,13 +6,13 @@ const ApplicationsSummaryListItem = (props) => {
     const { summary } = props;
     const { acountryWithServersList, highestImpactOfApp } = summary; //burda uygulamanin bulundugu ulkelerin bulundugu liste
 
-    let classOfAppAlert = 'container border-success text-center';
+    let classOfAppAlert = 'container border border-success text-center';
     if (highestImpactOfApp === 'LOW') {
-        classOfAppAlert = 'container border-primary text-center';
+        classOfAppAlert = 'container border border-primary text-center';
     } else if (highestImpactOfApp === 'MEDIUM') {
-        classOfAppAlert = 'container border-warning text-center'
+        classOfAppAlert = 'container border border-warning text-center'
     } else if (highestImpactOfApp === 'HIGH') {
-        classOfAppAlert = 'container border-danger text-center';
+        classOfAppAlert = 'container border border-danger text-center';
     }
 
     let isTheAppHasAnIssue = false;
