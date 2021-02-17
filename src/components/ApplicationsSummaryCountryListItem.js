@@ -4,7 +4,7 @@ import ApplicationsSummaryServerListItem from './ApplicationsSummaryServerListIt
 
 const ApplicationsSummaryCountryListItem = (props) => {
     const { countryWithServersList } = props;
-    const { jobNameListInAServerModelList, highestImpactOfCountry } = countryWithServersList;
+    const { aserverWithJobsList, highestImpactOfCountry } = countryWithServersList;
 
     let classOfCountryAlert = 'container bg-success text-center';
     if (highestImpactOfCountry === 'LOW') {
@@ -21,10 +21,10 @@ const ApplicationsSummaryCountryListItem = (props) => {
                 {countryWithServersList.countryName}
             </Alert>
 
-            {jobNameListInAServerModelList.map((aServerWithJobList, index) => {
+            {aserverWithJobsList.map((aServerWithJobs, index) => {
                 return (
                     <Row>
-                        <ApplicationsSummaryServerListItem aServerWithJobList={aServerWithJobList} />
+                        <ApplicationsSummaryServerListItem aServerWithJobs={aServerWithJobs} />
                     </Row>
                 )
             })}

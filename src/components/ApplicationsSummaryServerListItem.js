@@ -2,8 +2,8 @@ import React from 'react';
 import { Col, Row, Alert } from 'react-bootstrap';
 
 const ApplicationsSummaryServerListItem = (props) => {
-    const { aServerWithJobList: ServersWithJobList } = props;
-    const { jobAndIssues: jobsAndIssues, highestImpactOfServer } = ServersWithJobList;
+    const { aServerWithJobs } = props;
+    const { jobAndIssues: jobsAndIssues, highestImpactOfServer } = aServerWithJobs;
 
     let classOfServerAlert = 'container bg-success text-center';
     if (highestImpactOfServer === 'LOW') {
@@ -19,7 +19,7 @@ const ApplicationsSummaryServerListItem = (props) => {
             <div className="contaier">
                 <Col >
                     <Alert className={classOfServerAlert}>
-                        {ServersWithJobList.serverName}
+                        {aServerWithJobs.serverName}
                     </Alert>
                 </Col>
             </div>
