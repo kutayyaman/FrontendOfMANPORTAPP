@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { getTop3Issues } from '../api/apiCalls';
+import { getTop3Issues } from '../../api/apiCalls';
 import { useTranslation } from 'react-i18next';
 import Top3IssueLıstItem from './Top3IssueLıstItem';
-import { useApiProgress } from '../shared/ApiProgress';
+import { useApiProgress } from '../../shared/ApiProgress';
 
 const Top3IssuesLıst = () => { //bu bir hook oldu artik
     const [issues, setissues] = useState([]);

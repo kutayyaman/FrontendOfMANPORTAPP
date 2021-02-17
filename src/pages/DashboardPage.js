@@ -1,6 +1,6 @@
 import React from 'react';
-import Top3IssuesLıst from '../components/Top3IssuesLıst';
-import ApplicationsSummaryList from '../components/ApplicationsSummaryList';
+import Top3IssuesLıst from '../components/Top3IssuesComponents/Top3IssuesLıst';
+import ApplicationsSummaryList from '../components/ApplicationsSummaryComponents/ApplicationsSummaryList';
 
 const DashboardPage = () => {
     return (

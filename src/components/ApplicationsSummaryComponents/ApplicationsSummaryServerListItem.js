@@ -1,5 +1,6 @@
 import React from 'react';
-import { Col, Row, Alert } from 'react-bootstrap';
+import { Col, Alert } from 'react-bootstrap';
+import JobWithIssuesComponent from './JobWithIssuesComponent';
 
 const ApplicationsSummaryServerListItem = (props) => {
     const { aServerWithJobs } = props;
@@ -25,25 +26,7 @@ const ApplicationsSummaryServerListItem = (props) => {
             </div>
 
             {jobsAndIssues.map((jobWithIssues, index) => {
-                let classOfJob = 'container bg-success';
-                const { highestImpactOfJob } = jobWithIssues;
-                if (highestImpactOfJob === 'LOW') {
-                    classOfJob = 'container bg-primary';
-                } else if (highestImpactOfJob === 'MEDIUM') {
-                    classOfJob = 'container bg-warning'
-                } else if (highestImpactOfJob === 'HIGH') {
-                    classOfJob = 'container bg-danger';
-                }
-                return (
-                    <Col xs={4} className="container text-white" >
-                        <div className={classOfJob}>
-                            <Alert className="text-center">
-                                {jobWithIssues.jobName}
-                            </Alert>
-                        </div>
-
-                    </Col>
-                )
+                return <JobWithIssuesComponent jobWithIssues={jobWithIssues} />
             })}
         </div>
 
