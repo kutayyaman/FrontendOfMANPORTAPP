@@ -22,7 +22,10 @@ i18n.use(initReactI18next).init({
                 'Language': 'Language',
                 'Logout': 'Logout',
                 'Last Issues': 'Last Issues',
-                'Something Went Wrong': 'Something Went Wrong'
+                'Something Went Wrong': 'Something Went Wrong',
+                'Issues': 'Issues',
+                'Previous': '< Previous',
+                'Next': 'Next >'
             }
         },
         tr: {
@@ -44,7 +47,10 @@ i18n.use(initReactI18next).init({
                 'Language': 'Dil',
                 'Logout': 'Çıkış Yap',
                 'Last Issues': 'Son Hatalar',
-                'Something Went Wrong': 'Bir şeyler yanlış gitti'
+                'Something Went Wrong': 'Bir şeyler yanlış gitti',
+                'Issues': 'Sorunlar',
+                'Previous': '< Önceki',
+                'Next': 'Sonraki >'
             }
         }
     },

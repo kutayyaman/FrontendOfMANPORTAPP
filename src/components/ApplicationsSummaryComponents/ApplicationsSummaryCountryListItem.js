@@ -24,7 +24,7 @@ const ApplicationsSummaryCountryListItem = (props) => {
             {
                 aserverWithJobsList.map((aServerWithJobs, index) => {
                     return (
-                        <ApplicationsSummaryServerListItem aServerWithJobs={aServerWithJobs} />
+                        <ApplicationsSummaryServerListItem aServerWithJobs={aServerWithJobs} key={aServerWithJobs.serverId} />
                     )
                 })
 

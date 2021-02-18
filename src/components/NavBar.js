@@ -84,11 +84,11 @@ const NavBar = (props) => {
                         <li className="nav-item">
                             <Link className="nav-link" to="/links">{t('Links')}</Link>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {t('Language')}
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <LanguageSelector></LanguageSelector>
                             </div>
                         </li>

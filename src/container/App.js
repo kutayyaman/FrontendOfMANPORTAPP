@@ -3,6 +3,7 @@ import LoginPageWithApiProgress from '../pages/LoginPage';
 import UserSignupPageWithApiProgress from '../pages/UserSignupPage';
 import HomePage from '../pages/HomePage';
 import DashboardPage from '../pages/DashboardPage';
+import IssuesPage from '../pages/IssuesPage';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import NavBar from '../components/NavBar'
 //HashRouter kullanarak uygulamayi single page application haline getirmis olduk.
@@ -25,6 +26,7 @@ const App = () => {
           {!isLoggedIn && <Route path="/login" component={LoginPageWithApiProgress} />}
           <Route path="/signup" component={UserSignupPageWithApiProgress} />
           <Route path="/dashboard" component={DashboardPage} />
+          <Route path="/issues" component={IssuesPage} />
           <Redirect to="/" />
         </Switch>
       </Router>

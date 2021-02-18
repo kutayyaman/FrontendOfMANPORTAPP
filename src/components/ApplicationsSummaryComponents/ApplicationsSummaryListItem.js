@@ -33,7 +33,7 @@ const ApplicationsSummaryListItem = (props) => {
                                 <Row>
                                     {acountryWithServersList.map((countryWithServersList, index) => {
                                         return (
-                                            <Col>
+                                            <Col key={countryWithServersList.countryId}>
                                                 <ApplicationsSummaryCountryListItem countryWithServersList={countryWithServersList} />
                                             </Col>
                                         )
