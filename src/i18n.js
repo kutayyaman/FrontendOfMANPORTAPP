@@ -25,7 +25,18 @@ i18n.use(initReactI18next).init({
                 'Something Went Wrong': 'Something Went Wrong',
                 'Issues': 'Issues',
                 'Previous': '< Previous',
-                'Next': 'Next >'
+                'Next': 'Next >',
+                'Date': 'Date',
+                'App Name': 'App Name',
+                'Job Name': 'Job Name',
+                'Impact': 'Impact',
+                'Country': 'Country',
+                'Description': 'Description',
+                'Actions': 'Actions',
+                'View': 'View',
+                'Edit': 'Edit',
+                'Delete': 'Delete',
+                'Status': 'Status'
             }
         },
         tr: {
@@ -50,7 +61,18 @@ i18n.use(initReactI18next).init({
                 'Something Went Wrong': 'Bir şeyler yanlış gitti',
                 'Issues': 'Sorunlar',
                 'Previous': '< Önceki',
-                'Next': 'Sonraki >'
+                'Next': 'Sonraki >',
+                'Date': 'Tarih',
+                'App Name': 'Uygulama Adı',
+                'Job Name': 'Job Adı',
+                'Impact': 'Etki',
+                'Country': 'Ülke',
+                'Description': 'Tanım',
+                'Actions': 'Aksiyonlar',
+                'View': 'Görüntüle',
+                'Edit': 'Düzenle',
+                'Delete': 'Sil',
+                'Status': 'Durum'
             }
         }
     },

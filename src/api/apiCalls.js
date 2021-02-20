@@ -2,6 +2,7 @@ import axios from 'axios';
 
 
 export const signup = (body) => {
+    console.log(body);
     return axios.post('/api/users', body);
 };
 
