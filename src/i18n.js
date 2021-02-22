@@ -36,7 +36,18 @@ i18n.use(initReactI18next).init({
                 'View': 'View',
                 'Edit': 'Edit',
                 'Delete': 'Delete',
-                'Status': 'Status'
+                'Status': 'Status',
+                'Issue Not Found': 'Issue Not Found',
+                'Updated Successfully': 'Updated Successfully',
+                'You Should Fill in the fields': 'You Should Fill in the fields',
+                'name': 'Name',
+                'Select One': 'Select One',
+                'Server': 'Server',
+                'Details': 'Details',
+                'Remove Filter': 'Remove Filter',
+                'Search': 'Search',
+                'Update': 'Update',
+                'An Error Occured While deleting issue': 'An Error Occured While deleting issue'
             }
         },
         tr: {
@@ -72,7 +83,18 @@ i18n.use(initReactI18next).init({
                 'View': 'Görüntüle',
                 'Edit': 'Düzenle',
                 'Delete': 'Sil',
-                'Status': 'Durum'
+                'Status': 'Durum',
+                'Issue Not Found': 'Issue Bulunamadı',
+                'Updated Successfully': 'Başarıyla Güncellendi',
+                'You Should Fill in the fields': 'Tüm alanları doldurmalısınız.',
+                'name': 'Adı',
+                'Select One': 'Bir tane seçin',
+                'Server': 'Sunucu',
+                'Details': 'Detaylar',
+                'Remove Filter': 'Filtreyi Kaldır',
+                'Search': 'Ara',
+                'Update': 'Güncelle',
+                'An Error Occured While deleting issue': 'Issue silinirken bir hata oluştu.'
             }
         }
     },

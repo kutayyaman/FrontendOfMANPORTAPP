@@ -8,6 +8,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
+import Spinner from '../Spinner';
 
 const IssueList = () => {
     const [page, setPage] = useState({
@@ -36,7 +37,7 @@ const IssueList = () => {
     const pendingApiCall = useApiProgress('/api/issue/issues'); //useEffect'ten sonra tanimlanirsa calismaz cunku sonrasin aldigimiz zaman o esnada artik request atilmis oluyo ve biz ondan sonra dinlemeye basliyoruz yani gec kalmis oluyoruz.
 
     useEffect(() => {
-        loadIssues();
+        //loadIssues(); // TODO: bu aktif oldugu zaman ayni istegi iki kere atiyor arastir
         loadApps();
     }, []); //component didMount gibi calisir bu suan ama egerki 2. parametreye hic bir sey vermeseydik hem didmount hem de didupdate gibi calisirdi yani her degisiklikte calisirdi gibi bir anlama geliyor. ama mesela ikinci parametre olarak [param1,param2] gibi bisey deseydik param1 veya param2 degistigi zaman calis gibi bir anlami olurdu
 
@@ -89,11 +90,7 @@ const IssueList = () => {
 
     if (pendingApiCall) {
         buttonsOrProgressBarDiv = (
-            <div className="text-center mt-2">
-                <div className="spinner-border" role="status">
-                    <span className="sr-only"></span>
-                </div>
-            </div>
+            <Spinner></Spinner>
         )
     }
 
@@ -167,11 +164,13 @@ const IssueList = () => {
                 </div>
 
                 <button type="button" className="btn btn-info" onClick={(event) => {
+                    loadIssues();
                     setIsFiltered(true);
-                }}>Search</button>
+                }}>{t('Search')}</button>
                 <button type="button" className="btn btn-secondary" onClick={(event) => {
+                    loadIssues();
                     setIsFiltered(false);
-                }}>Remove Filter</button>
+                }}>{t('Remove Filter')}</button>
             </div>
 
 

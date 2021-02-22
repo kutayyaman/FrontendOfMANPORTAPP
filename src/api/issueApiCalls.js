@@ -10,3 +10,23 @@ export const getIssues = (page = 0, size = 5, body = undefined) => {
     }
     return axios.get(`/api/issue/issues?page=${page}&size=${size}`);
 }
+
+export const getIssueById = (id) => {
+    return axios.get(`/api/issue/${id}`);
+}
+
+export const getImpactTypes = () => {
+    return axios.get('/api/issue/impactTypes');
+}
+
+export const updateIssue = (updatedValues) => {
+    return axios.put('/api/issue', updatedValues);
+}
+
+export const deleteIssueById = (id) => {
+    return axios.delete(`/api/issue/${id}`)
+}
+
+export const changeIssueStatusById = (status, id) => {
+    return axios.put(`/api/issue/changeStatus/${id}`, status)
+}

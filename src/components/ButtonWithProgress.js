@@ -1,4 +1,5 @@
 import React from 'react';
+import Spinner from './Spinner';
 
 const ButtonWithProgress = (props) => {
     const { onClick, pendingApiCall, disabled, text, loading } = props
@@ -9,9 +10,7 @@ const ButtonWithProgress = (props) => {
             </div>
             <div className="text-center mt-2">
                 {pendingApiCall && //conditional rendering deniyor buna pendingApiCall dogruysa devamindaki calisir
-                    <div className="spinner-border" role="status">
-                        <span className="sr-only">{loading}</span>
-                    </div>
+                    <Spinner></Spinner>
                 }
             </div>
         </div>

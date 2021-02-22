@@ -3,6 +3,7 @@ import { getTop3Issues } from '../../api/issueApiCalls';
 import { useTranslation } from 'react-i18next';
 import Top3IssueLıstItem from './Top3IssueLıstItem';
 import { useApiProgress } from '../../shared/ApiProgress';
+import Spinner from '../Spinner';
 
 const Top3IssuesLıst = () => { //bu bir hook oldu artik
     const [issues, setissues] = useState([]);
@@ -34,9 +35,7 @@ const Top3IssuesLıst = () => { //bu bir hook oldu artik
                 })}
                 <div className="text-center mt-2">
                     {pendingApiCall && //conditional rendering deniyor buna pendingApiCall dogruysa devamindaki calisir
-                        <div className="spinner-border" role="status">
-                            <span className="sr-only"></span>
-                        </div>
+                        <Spinner></Spinner>
                     }
                     {loadFailure == true &&
                         <div className="text-center text-danger">{t('Something Went Wrong')}</div>}

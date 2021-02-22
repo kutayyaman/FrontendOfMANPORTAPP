@@ -6,6 +6,7 @@ import { useApiProgress } from '../../shared/ApiProgress';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
+import Spinner from '../Spinner';
 
 
 const ApplicationsSummaryList = () => {
@@ -35,9 +36,7 @@ const ApplicationsSummaryList = () => {
             })}
             <div className="container text-center mt-2">
                 {pendingApiCall && //conditional rendering deniyor buna pendingApiCall dogruysa devamindaki calisir
-                    <div className="spinner-border" role="status">
-                        <span className="sr-only"></span>
-                    </div>
+                    <Spinner></Spinner>
                 }
                 {loadFailure == true &&
                     <div className="text-center text-danger">{t('Something Went Wrong')}</div>}

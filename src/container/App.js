@@ -8,6 +8,7 @@ import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 import NavBar from '../components/NavBar'
 //HashRouter kullanarak uygulamayi single page application haline getirmis olduk.
 import { useSelector } from 'react-redux';
+import IssueDetailPage from '../pages/IssueDetailPage';
 
 const App = () => {
 
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/signup" component={UserSignupPageWithApiProgress} />
           <Route path="/dashboard" component={DashboardPage} />
           <Route path="/issues" component={IssuesPage} />
+          <Route path="/issue/:id/:disabled" component={IssueDetailPage} />
           <Redirect to="/" />
         </Switch>
       </Router>
