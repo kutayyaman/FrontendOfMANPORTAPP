@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { getIssues } from '../../api/issueApiCalls';
-import { getAppsDropList } from '../../api/appApiCalls';
 import { useTranslation } from 'react-i18next';
 import IssueListItem from './IssueListItem';
 import { useApiProgress } from '../../shared/ApiProgress';
@@ -9,8 +8,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import Spinner from '../Spinner';
+import IssueFilter from './IssueFilter';
 
 const IssueList = () => {
+
     const [page, setPage] = useState({
         content: [],
         first: undefined,
@@ -18,47 +19,36 @@ const IssueList = () => {
         number: undefined
     });
 
-    const [apps, setApps] = useState([]);
-
-    const [loadFailure, setLoadFailure] = useState(false);
-
-    const [issuesFilter, setIssuesFilter] = useState({
+    const [isFilteredFromFilter, setIsFilteredFromFilter] = useState(false);
+    const [issuesFilterFromFilter, setIssuesFilterFromFilter] = useState({
         selectedFromDate: null,
         selectedToDate: null,
         appId: null,
         status: null
     });
 
-    const [isFiltered, setIsFiltered] = useState(false);
-    useEffect(() => {
-        loadIssues();
-    }, [isFiltered]);
+    const [loadFailure, setLoadFailure] = useState(false);
 
     const pendingApiCall = useApiProgress('/api/issue/issues'); //useEffect'ten sonra tanimlanirsa calismaz cunku sonrasin aldigimiz zaman o esnada artik request atilmis oluyo ve biz ondan sonra dinlemeye basliyoruz yani gec kalmis oluyoruz.
 
-    useEffect(() => {
-        //loadIssues(); // TODO: bu aktif oldugu zaman ayni istegi iki kere atiyor arastir
-        loadApps();
-    }, []); //component didMount gibi calisir bu suan ama egerki 2. parametreye hic bir sey vermeseydik hem didmount hem de didupdate gibi calisirdi yani her degisiklikte calisirdi gibi bir anlama geliyor. ama mesela ikinci parametre olarak [param1,param2] gibi bisey deseydik param1 veya param2 degistigi zaman calis gibi bir anlami olurdu
-
     const onClickNext = () => {
         const nextPage = page.number + 1;
-        loadIssues(nextPage);
+        loadIssues(isFilteredFromFilter, issuesFilterFromFilter, nextPage);
     }
 
     const onClickPrevious = () => {
         const previousPage = page.number - 1;
-        loadIssues(previousPage);
+        loadIssues(isFilteredFromFilter, issuesFilterFromFilter, previousPage);
     }
 
-    const loadIssues = async (page = 0) => {
+    const loadIssues = async (isFiltered = isFilteredFromFilter, filteredValues = issuesFilterFromFilter, page = 0) => {
         try {
             let response;
             if (isFiltered === false) {
                 response = await getIssues(page, 5, undefined);
             }
             else {
-                response = await getIssues(page, 5, issuesFilter);
+                response = await getIssues(page, 5, filteredValues);
             }
             setLoadFailure(false);
             const { data } = response;
@@ -66,18 +56,13 @@ const IssueList = () => {
         } catch (error) {
             setLoadFailure(true);
         }
-    }
-
-    const loadApps = async () => {
-        try {
-            const response = await getAppsDropList();
-            const { data } = response;
-            setApps(data);
-        } catch (error) {
-
+        if (isFiltered) {
+            setIsFilteredFromFilter(isFiltered);
+        }
+        if (filteredValues) {
+            setIssuesFilterFromFilter({ ...filteredValues });
         }
     }
-
 
     const { t } = useTranslation();
     const { content: issues, first, last } = page;
@@ -96,83 +81,8 @@ const IssueList = () => {
 
     return (
         <div>
-            <div className="card mb-2">
-                <div className="row">
 
-                    <div className="col">
-                        <span className="mr-2">Application:</span>
-                        <select className="form-select form-select-sm" aria-label=".form-select-sm example" defaultValue=''
-                            onChange={
-                                (event) => {
-                                    const copyIssuesFilter = { ...issuesFilter };
-                                    copyIssuesFilter.appId = event.target.value;
-                                    setIssuesFilter(copyIssuesFilter);
-                                }}>
-                            <option value=''>All</option>
-                            {apps.map((app, index) => {
-                                return (
-                                    <option value={app.id}>{app.shortName}</option>
-                                )
-                            })}
-                        </select>
-                    </div>
-
-                    <div className="col">
-                        <span className="mr-2">Status:</span>
-                        <select className="form-select form-select-sm" aria-label=".form-select-sm example" defaultValue='' onChange={
-                            (event) => {
-                                const copyIssuesFilter = { ...issuesFilter };
-                                copyIssuesFilter.status = event.target.value;
-                                setIssuesFilter(copyIssuesFilter);
-                            }}>
-                            <option value=''>All</option>
-                            <option value="true">On</option>
-                            <option value="false">Off</option>
-                        </select>
-                    </div>
-
-                </div>
-                <div className="row">
-                    <div className="col">
-                        <span>From:</span>
-                        <DatePicker className="m-1"
-                            dateFormat="yyyy-MM-dd"
-                            selected={issuesFilter.selectedFromDate}
-                            onChange={date => {
-                                const copyIssuesFilter = { ...issuesFilter };
-                                copyIssuesFilter.selectedFromDate = date;
-                                setIssuesFilter(copyIssuesFilter);
-                            }}
-                            maxDate={issuesFilter.selectedToDate}
-                        />
-                        <FontAwesomeIcon icon={faCalendar} />
-                    </div>
-                    <div className="col">
-                        <span>To:</span>
-                        <DatePicker className="m-1"
-                            dateFormat="yyyy-MM-dd"
-                            selected={issuesFilter.selectedToDate}
-                            onChange={date => {
-                                const copyIssuesFilter = { ...issuesFilter };
-                                copyIssuesFilter.selectedToDate = date;
-                                setIssuesFilter(copyIssuesFilter);
-                            }}
-                            minDate={issuesFilter.selectedFromDate}
-                        />
-                        <FontAwesomeIcon icon={faCalendar} />
-                    </div>
-                </div>
-
-                <button type="button" className="btn btn-info" onClick={(event) => {
-                    loadIssues();
-                    setIsFiltered(true);
-                }}>{t('Search')}</button>
-                <button type="button" className="btn btn-secondary" onClick={(event) => {
-                    loadIssues();
-                    setIsFiltered(false);
-                }}>{t('Remove Filter')}</button>
-            </div>
-
+            <IssueFilter loadIssues={loadIssues}></IssueFilter>
 
             <div className="card">
                 <h2 className="card-header text-center">{t('Issues')}</h2>
