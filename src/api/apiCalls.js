@@ -23,7 +23,3 @@ export const setAuthorizationHeader = ({ mail, password, isLoggedIn }) => { //bu
     }
 
 }
-
-export const getApplicationsSummary = () => {
-    return axios.get('/api/applicationsummary');
-}

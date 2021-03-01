@@ -47,7 +47,12 @@ i18n.use(initReactI18next).init({
                 'Remove Filter': 'Remove Filter',
                 'Search': 'Search',
                 'Update': 'Update',
-                'An Error Occured While deleting issue': 'An Error Occured While deleting issue'
+                'An Error Occured While deleting issue': 'An Error Occured While deleting issue',
+                'Application Name': 'Application Name',
+                'Business Area': 'Business Area',
+                'Live Plants': 'Live Plants',
+                'Line Stop Risk': 'Line Stop Risk',
+                'Track': 'Track'
             }
         },
         tr: {
@@ -94,7 +99,12 @@ i18n.use(initReactI18next).init({
                 'Remove Filter': 'Filtreyi Kaldır',
                 'Search': 'Ara',
                 'Update': 'Güncelle',
-                'An Error Occured While deleting issue': 'Issue silinirken bir hata oluştu.'
+                'An Error Occured While deleting issue': 'Issue silinirken bir hata oluştu.',
+                'Application Name': 'Uygulama Adı',
+                'Business Area': 'İş Alanı',
+                'Live Plants': 'Çalıştığı Serverlar',
+                'Line Stop Risk': 'Hat Durdurma Riski',
+                'Track': 'Takip Edilme'
             }
         }
     },

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getApplicationsSummary } from '../../api/apiCalls';
+import { getApplicationsSummary } from '../../api/appApiCalls';
 import { useTranslation } from 'react-i18next';
 import ApplicationsSummaryListItem from './ApplicationsSummaryListItem';
 import { useApiProgress } from '../../shared/ApiProgress';

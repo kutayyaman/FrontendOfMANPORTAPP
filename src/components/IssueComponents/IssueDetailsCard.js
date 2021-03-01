@@ -73,18 +73,22 @@ const IssueDetailsCard = props => {
     }
 
     const loadJobs = async (appId) => {
-        try {
-            const response = await getJobsByAppId(appId);
-            setJobs(response.data);
-        } catch (error) {
+        if (appId) {
+            try {
+                const response = await getJobsByAppId(appId);
+                setJobs(response.data);
+            } catch (error) {
+            }
         }
     }
 
     const loadServers = async (countryId) => {
-        try {
-            const response = await getServersByCountryId(countryId);
-            setServers(response.data);
-        } catch (error) {
+        if (countryId) {
+            try {
+                const response = await getServersByCountryId(countryId);
+                setServers(response.data);
+            } catch (error) {
+            }
         }
     }
 
@@ -130,7 +134,6 @@ const IssueDetailsCard = props => {
         else {
             setErrorMessage(t('You Should Fill in the fields'));
         }
-        console.log(issue.jobInterfaceId);
     }
 
     return (
@@ -235,7 +238,7 @@ const IssueDetailsCard = props => {
                                     <option value=''>{t('Select One')}</option>
                                     {jobs.map((jobFromApi, index) => {
                                         return (
-                                            <option key={jobFromApi.id} value={jobFromApi.id} selected={jobFromApi.id == jobInterfaceId}>{jobFromApi.name}</option>
+                                            <option key={jobFromApi.id} value={jobFromApi.id} selected={jobFromApi.id == issue.jobInterfaceId}>{jobFromApi.name}</option>
                                         )
 
                                     })}
@@ -251,7 +254,7 @@ const IssueDetailsCard = props => {
                                 <select disabled={disabled} className="form-control" name='countryId' onChange={(event) => { inputOnChanged(event); }}>
                                     {countries.map((countryFromApi, index) => {
                                         return (
-                                            <option key={index} value={countryFromApi.id} selected={countryFromApi.name == countryName}>{countryFromApi.name}</option>
+                                            <option key={index} value={countryFromApi.id} selected={countryFromApi.id == issue.countryId}>{countryFromApi.name}</option>
                                         )
 
                                     })}
@@ -271,7 +274,7 @@ const IssueDetailsCard = props => {
                                     <option value=''>{t('Select One')}</option>
                                     {servers.map((serverFromApi, index) => {
                                         return (
-                                            <option key={serverFromApi.id} value={serverFromApi.id} selected={serverFromApi.id == serverId}>{serverFromApi.name}</option>
+                                            <option key={serverFromApi.id} value={serverFromApi.id} selected={serverFromApi.id == issue.serverId}>{serverFromApi.name}</option>
                                         )
 
                                     })}
