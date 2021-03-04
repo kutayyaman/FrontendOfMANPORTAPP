@@ -67,7 +67,7 @@ const AppDetailsCard = props => {
         }
     }
 
-    const getBackendsFunc = async () => {
+    /*const getBackendsFunc = async () => {
         try {
             const result = await getBackends();
             setbackends(result.data);
@@ -92,15 +92,15 @@ const AppDetailsCard = props => {
         } catch (error) {
             seterrorMessage(error.response.data.message);
         }
-    }
+    }*/
 
     useEffect(() => {
         getAppById(id);
         getBusinessAreaTypesFunc();
         getAllTeamsFunc();
-        getBackendsFunc();
+        /*getBackendsFunc();
         getFrontendsFunc();
-        getDatabasesFunc();
+        getDatabasesFunc();*/
     }, [])
     useEffect(() => {
         getUsersByTeamIdFunc(app.responsibleTeamId);

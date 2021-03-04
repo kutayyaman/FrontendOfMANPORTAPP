@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useApiProgress } from '../shared/ApiProgress';
 import Spinner from '../components/Spinner';
 import AppDetailsCard from '../components/AppDetailPageComponents/AppDetailCard';
+import AppLinks from '../components/AppDetailPageComponents/AppLinks';
 
 const AppDetailPage = props => {
     const [issue, setIssue] = useState({});
@@ -14,6 +15,7 @@ const AppDetailPage = props => {
     return (
         <div>
             <AppDetailsCard></AppDetailsCard>
+            <AppLinks></AppLinks>
         </div>
     )
 
