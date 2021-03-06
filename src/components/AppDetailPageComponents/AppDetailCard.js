@@ -36,7 +36,8 @@ const AppDetailsCard = props => {
             const result = await getApplicationById(id);
             setApp(result.data);
         } catch (error) {
-            seterrorMessage(error.response.data.message);
+            console.log(error.response.data);
+            seterrorMessage(t('Something Went Wrong'));
         }
     }
 
@@ -45,7 +46,7 @@ const AppDetailsCard = props => {
             const result = await getBusinessAreaTypes();
             setbusinessAreaTypes(result.data);
         } catch (error) {
-            seterrorMessage(error.response.data.message);
+            seterrorMessage(t('Something Went Wrong'));
         }
     }
 
@@ -54,7 +55,7 @@ const AppDetailsCard = props => {
             const result = await getAllTeams();
             setteams(result.data);
         } catch (error) {
-            seterrorMessage(error.response.data.message);
+            seterrorMessage(t('Something Went Wrong'));
         }
     }
 
@@ -64,7 +65,7 @@ const AppDetailsCard = props => {
                 const result = await getUsersByTeamId(teamId);
                 setusers(result.data);
             } catch (error) {
-                seterrorMessage(error.response.data.message);
+                seterrorMessage(t('Something Went Wrong'));
             }
         }
     }
@@ -116,14 +117,16 @@ const AppDetailsCard = props => {
             const response = await updateApplication(app);
             setsuccessMessage(t('Updated Successfully'));
         } catch (error) {
-            seterrorMessage(error.response.data.message);
+            seterrorMessage(t('Something Went Wrong'));
         }
     }
 
     if (pendingApiCall) {
         return (<Spinner></Spinner>)
     }
-
+    if (errorMessage) {
+        return (<div className="text-center alert-danger">{errorMessage}</div>)
+    }
     return (
         <div className="container">
             <div className="card">

@@ -17,7 +17,7 @@ const AppLinks = props => {
             const result = await getLinksByAppIdForManagementPage(appId);
             setData(result.data);
         } catch (error) {
-            setErrorMessage(error.response.data.message);
+            setErrorMessage(t('Something Went Wrong'));
         }
     }
 
@@ -30,6 +30,9 @@ const AppLinks = props => {
 
     if (pendingApiCall) {
         return (<Spinner></Spinner>)
+    }
+    if (errorMessage) {
+        return (<div className="text-center alert-danger">{errorMessage}</div>)
     }
     return (
         <Accordion defaultActiveKey="0">

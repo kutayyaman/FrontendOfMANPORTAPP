@@ -3,6 +3,7 @@ import { getManagementFactoriesByAppId, changeAliveByAppIdAndCountryId, changeTr
 import BootstrapSwitchButton from 'bootstrap-switch-button-react';
 import { useApiProgress } from '../../shared/ApiProgress';
 import Spinner from '../../components/Spinner';
+import { useTranslation } from 'react-i18next';
 
 const FactoryManagementComponent = props => {
     const { id } = props;
@@ -13,12 +14,14 @@ const FactoryManagementComponent = props => {
     const [checkboxChanged, setCheckboxChanged] = useState(false);
     const [trackChanged, setTrackChanged] = useState(false);
 
+    const { t } = useTranslation();
+
     const getManagementFactoriesAppByIdFunc = async (id) => {
         try {
             const result = await getManagementFactoriesByAppId(id);
             setManagementFactories(result.data);
         } catch (error) {
-            seterrorMessage(error.response.data.message);
+            seterrorMessage(t('Something Went Wrong'));
         }
     }
 
@@ -34,7 +37,7 @@ const FactoryManagementComponent = props => {
             const result = await changeAliveByAppIdAndCountryId({ appId: appId, countryId: countryId });
             setCheckboxChanged(!checkboxChanged);
         } catch (error) {
-            seterrorMessage(error.response.data.message);
+            seterrorMessage(t('Something Went Wrong'));
         }
 
     }
@@ -44,14 +47,16 @@ const FactoryManagementComponent = props => {
             const result = await changeTrackByAppIdAndCountryId({ appId: appId, countryId: countryId });
             setTrackChanged(!trackChanged);
         } catch (error) {
-            seterrorMessage(error.response.data.message);
+            seterrorMessage(t('Something Went Wrong'));
         }
     }
 
     if (pendingApiCall) {
         return (<Spinner></Spinner>)
     }
-
+    if (errorMessage) {
+        return (<div className="text-center alert-danger">{errorMessage}</div>)
+    }
     return (
         <div className="container">
             <table className="table">
