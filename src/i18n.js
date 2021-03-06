@@ -53,7 +53,9 @@ i18n.use(initReactI18next).init({
                 'Live Plants': 'Live Plants',
                 'Line Stop Risk': 'Line Stop Risk',
                 'Track': 'Track',
-                'There is no link for this app': 'There is no link for this app'
+                'There is no link for this app': 'There is no link for this app',
+                'Issues Management': 'Issues Management',
+                'Issue Name': 'Issue Name'
             }
         },
         tr: {
@@ -106,7 +108,9 @@ i18n.use(initReactI18next).init({
                 'Live Plants': 'Çalıştığı Serverlar',
                 'Line Stop Risk': 'Hat Durdurma Riski',
                 'Track': 'Takip Edilme',
-                'There is no link for this app': 'Bu uygulamaya ait bir link yok'
+                'There is no link for this app': 'Bu uygulamaya ait bir link yok',
+                'Issues Management': 'Issues Yönetimi',
+                'Issue Name': 'Issue Adı'
             }
         }
     },

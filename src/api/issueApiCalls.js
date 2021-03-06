@@ -30,3 +30,11 @@ export const deleteIssueById = (id) => {
 export const changeIssueStatusById = (status, id) => {
     return axios.put(`/api/issue/changeStatus/${id}`, status)
 }
+
+export const changeIssueTrackById = (track, id) => {
+    return axios.put(`/api/issue/changeTrack/${id}`, track)
+}
+
+export const getIssuesByAppId = (appId, page = 0, size = 5) => {
+    return axios.get(`/api/issue/getByAppId/${appId}?page=${page}&size=${size}`);
+}

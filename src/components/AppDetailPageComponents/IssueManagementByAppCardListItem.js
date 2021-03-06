@@ -3,15 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faEye, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import BootstrapSwitchButton from 'bootstrap-switch-button-react'
 import { Link } from 'react-router-dom';
-import { deleteIssueById, changeIssueStatusById } from '../../api/issueApiCalls';
 import { useTranslation } from 'react-i18next';
+import { deleteIssueById, changeIssueTrackById } from '../../api/issueApiCalls';
 
 
-const IssueListItem = (props) => {
-
+const IssueManagementByAppCardListItem = (props) => {
     const { t } = useTranslation();
     const { issue } = props;
-    const { name, createdDate, appShortName, jobName, impact, countryName, description, status, id } = issue;
+    const { name, createdDate, appShortName, jobName, impact, countryName, description, status, id, track } = issue;
     const [errorMessage, seterrorMessage] = useState(undefined)
     const [infoMessage, setInfoMessage] = useState(undefined);
 
@@ -30,8 +29,8 @@ const IssueListItem = (props) => {
         }
     }
 
-    const statusSwitchButtonChanged = async (status) => {
-        changeIssueStatusById({ status }, id);
+    const trackSwitchButtonChanged = async (track) => {
+        changeIssueTrackById({ track }, id);
     }
 
     if (infoMessage) {
@@ -47,11 +46,8 @@ const IssueListItem = (props) => {
     else {
         return (
             <tr>
-                <td>{createdDate}</td>
-                <td>{appShortName}</td>
                 <td>{jobName}</td>
                 <td>{impact}</td>
-                <td>{countryName}</td>
                 <td>{description}</td>
                 <td>
                     <div className="row">
@@ -65,13 +61,13 @@ const IssueListItem = (props) => {
                                 <FontAwesomeIcon icon={faEdit} />
                             </Link>
                         </div>
-                        <button className="btn button-small btn-danger col-3" onClick={() => { deleteButtonClicked() }}>
+                        <button className="btn button-small btn-danger col-3" onClick={() => { deleteButtonClicked(); }}>
                             <FontAwesomeIcon className="hover-overlay" icon={faTrashAlt} />
                         </button>
                         <div className="col-3">
                             <BootstrapSwitchButton
-                                onChange={(event) => { statusSwitchButtonChanged(event) }}
-                                checked={status}
+                                onChange={(event) => { trackSwitchButtonChanged(event) }}
+                                checked={track}
                                 onlabel='ON'
                                 offlabel='OFF'
                                 onstyle="success"
@@ -83,5 +79,4 @@ const IssueListItem = (props) => {
         )
     }
 };
-
-export default IssueListItem;
+export default IssueManagementByAppCardListItem;
