@@ -6,6 +6,9 @@ import { getUsersByTeamId } from '../../api/userApiCalls';
 import { useTranslation } from 'react-i18next';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useApiProgress } from '../../shared/ApiProgress';
+import Spinner from '../../components/Spinner';
+
 
 
 const AppDetailsCard = props => {
@@ -24,6 +27,8 @@ const AppDetailsCard = props => {
     const [backends, setbackends] = useState([]);
     const [frontends, setfrontends] = useState([]);
     const [databases, setdatabases] = useState([]);
+
+    const pendingApiCall = useApiProgress('/api/application', 'get'); //bu useEffect'den once yazilmali yoksa calismaz cunku useEffect'in altinda bir yere yazsaydik istek atildiktan sonra bu calisirdi ve gec kalmis olurduk
 
 
     const getAppById = async (id) => {
@@ -64,40 +69,11 @@ const AppDetailsCard = props => {
         }
     }
 
-    /*const getBackendsFunc = async () => {
-        try {
-            const result = await getBackends();
-            setbackends(result.data);
-        } catch (error) {
-            seterrorMessage(error.response.data.message);
-        }
-    }
-
-    const getFrontendsFunc = async () => {
-        try {
-            const result = await getFrontends();
-            setfrontends(result.data);
-        } catch (error) {
-            seterrorMessage(error.response.data.message);
-        }
-    }
-
-    const getDatabasesFunc = async () => {
-        try {
-            const result = await getDatabases();
-            setdatabases(result.data);
-        } catch (error) {
-            seterrorMessage(error.response.data.message);
-        }
-    }*/
 
     useEffect(() => {
         getAppById(id);
         getBusinessAreaTypesFunc();
         getAllTeamsFunc();
-        /*getBackendsFunc();
-        getFrontendsFunc();
-        getDatabasesFunc();*/
     }, [])
     useEffect(() => {
         getUsersByTeamIdFunc(app.responsibleTeamId);
@@ -144,6 +120,9 @@ const AppDetailsCard = props => {
         }
     }
 
+    if (pendingApiCall) {
+        return (<Spinner></Spinner>)
+    }
 
     return (
         <div className="container">

@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 import { getLinksByAppIdForManagementPage } from '../../api/linkApiCalls';
 import { Accordion, Card, Container, Row, Col } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-
+import { useApiProgress } from '../../shared/ApiProgress';
+import Spinner from '../../components/Spinner';
 
 const AppLinks = props => {
     const { id } = props;
@@ -20,12 +21,16 @@ const AppLinks = props => {
         }
     }
 
+    const pendingApiCall = useApiProgress('/api/link/', 'get'); //bu useEffect'den once yazilmali yoksa calismaz cunku useEffect'in altinda bir yere yazsaydik istek atildiktan sonra bu calisirdi ve gec kalmis olurduk
+
     useEffect(() => {
         getJobsByAppIdFunc(id);
     }, [id])
 
 
-
+    if (pendingApiCall) {
+        return (<Spinner></Spinner>)
+    }
     return (
         <Accordion defaultActiveKey="0">
             <Card className="m-5">

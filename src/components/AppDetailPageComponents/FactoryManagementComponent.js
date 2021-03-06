@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getManagementFactoriesByAppId, changeAliveByAppIdAndCountryId, changeTrackByAppIdAndCountryId } from '../../api/applicationCountryApiCalls';
 import BootstrapSwitchButton from 'bootstrap-switch-button-react';
-
+import { useApiProgress } from '../../shared/ApiProgress';
+import Spinner from '../../components/Spinner';
 
 const FactoryManagementComponent = props => {
     const { id } = props;
@@ -20,6 +21,8 @@ const FactoryManagementComponent = props => {
             seterrorMessage(error.response.data.message);
         }
     }
+
+    const pendingApiCall = useApiProgress('/api/applicationCountry/getManagementFactoriesByAppId', 'get'); //bu useEffect'den once yazilmali yoksa calismaz cunku useEffect'in altinda bir yere yazsaydik istek atildiktan sonra bu calisirdi ve gec kalmis olurduk
 
     useEffect(() => {
         getManagementFactoriesAppByIdFunc(id);
@@ -45,41 +48,43 @@ const FactoryManagementComponent = props => {
         }
     }
 
+    if (pendingApiCall) {
+        return (<Spinner></Spinner>)
+    }
+
     return (
         <div className="container">
-            <div>
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Alive</th>
-                            <th scope="col">Track</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {managementFactories.map((managementFactory, index) => {
-                            return (
-                                <tr key={managementFactory.countryDTO.id}>
-                                    <td>
-                                        <div className="row">
-                                            <div className="form-check">
-                                                <input name='alive' className="form-check-input" type="checkbox" checked={managementFactory.alive} id="flexCheckDefault" value={managementFactory.alive} onChange={(event) => { changeAliveByAppIdAndCountryIdFunc(id, managementFactory.countryDTO.id); }} />
-                                            </div>
-                                            {managementFactory.countryDTO.name}
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Alive</th>
+                        <th scope="col">Track</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {managementFactories.map((managementFactory, index) => {
+                        return (
+                            <tr key={managementFactory.countryDTO.id}>
+                                <td>
+                                    <div className="row">
+                                        <div className="form-check">
+                                            <input name='alive' className="form-check-input" type="checkbox" checked={managementFactory.alive} id="flexCheckDefault" value={managementFactory.alive} onChange={(event) => { changeAliveByAppIdAndCountryIdFunc(id, managementFactory.countryDTO.id); }} />
                                         </div>
-                                    </td>
-                                    <td><BootstrapSwitchButton
-                                        onChange={(event) => { changeTrackByAppIdAndCountryIdFunc(id, managementFactory.countryDTO.id); }}
-                                        checked={managementFactory.track}
-                                        onlabel='ON'
-                                        offlabel='OFF'
-                                        onstyle="success"
-                                    /></td>
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-                </table>
-            </div>
+                                        {managementFactory.countryDTO.name}
+                                    </div>
+                                </td>
+                                <td><BootstrapSwitchButton
+                                    onChange={(event) => { changeTrackByAppIdAndCountryIdFunc(id, managementFactory.countryDTO.id); }}
+                                    checked={managementFactory.track}
+                                    onlabel='ON'
+                                    offlabel='OFF'
+                                    onstyle="success"
+                                /></td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </table>
         </div>
     )
 };
