@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getLinksByAppIdForManagementPage } from '../../api/linkApiCalls';
 import { Accordion, Card, Container, Row, Col } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+
 
 const AppLinks = props => {
-    const { id } = useParams();
+    const { id } = props;
     const [data, setData] = useState([]);
     const [errorMessage, setErrorMessage] = useState();
+    const { t } = useTranslation();
 
     const getJobsByAppIdFunc = async (appId) => {
         try {
@@ -19,7 +22,7 @@ const AppLinks = props => {
 
     useEffect(() => {
         getJobsByAppIdFunc(id);
-    }, [])
+    }, [id])
 
 
 
@@ -32,8 +35,16 @@ const AppLinks = props => {
                 <Accordion.Collapse eventKey="0">
                     <Card.Body>
                         {data.map((specificType) => {
+                            if (specificType.acountryNameWithEnvironmentTypes.length <= 0) {
+                                return (
+                                    <div key={specificType.specificTypeName}>
+                                        <h5>{specificType.specificTypeName} Links </h5>
+                                        <div className="text-danger">{t('There is no link for this app')}</div>
+                                    </div>
+                                )
+                            }
                             return (
-                                <Accordion defaultActiveKey="0">
+                                <Accordion key={specificType.specificTypeName} defaultActiveKey="0">
                                     <div>
                                         <Card className="m-5">
                                             <Accordion.Toggle as={Card.Header} eventKey="0">
@@ -44,7 +55,7 @@ const AppLinks = props => {
                                                     {specificType.acountryNameWithEnvironmentTypes.map((country) => {
 
                                                         return (
-                                                            <Accordion defaultActiveKey="0">
+                                                            <Accordion key={country.countryName} defaultActiveKey="0">
                                                                 <Card className="m-5">
                                                                     <Accordion.Toggle as={Card.Header} eventKey="0">
                                                                         {country.countryName}
@@ -54,7 +65,7 @@ const AppLinks = props => {
                                                                             {
                                                                                 country.anEnvironmentTypeWithLinks.map((environmentType) => {
                                                                                     return (
-                                                                                        <Accordion defaultActiveKey="0">
+                                                                                        <Accordion key={environmentType.environmentTypeName} defaultActiveKey="0">
                                                                                             <Card className="m-5">
                                                                                                 <Accordion.Toggle as={Card.Header} eventKey="0">
                                                                                                     {environmentType.environmentTypeName}
@@ -63,7 +74,7 @@ const AppLinks = props => {
                                                                                                     <Card.Body>
                                                                                                         {environmentType.linkDTOList.map((link) => {
                                                                                                             return (
-                                                                                                                <Row>
+                                                                                                                <Row key={link.name}>
                                                                                                                     <h5 className="text-center mx-1">
                                                                                                                         {link.name}:
                                                                                                                     </h5>

@@ -52,7 +52,8 @@ i18n.use(initReactI18next).init({
                 'Business Area': 'Business Area',
                 'Live Plants': 'Live Plants',
                 'Line Stop Risk': 'Line Stop Risk',
-                'Track': 'Track'
+                'Track': 'Track',
+                'There is no link for this app': 'There is no link for this app'
             }
         },
         tr: {
@@ -104,7 +105,8 @@ i18n.use(initReactI18next).init({
                 'Business Area': 'İş Alanı',
                 'Live Plants': 'Çalıştığı Serverlar',
                 'Line Stop Risk': 'Hat Durdurma Riski',
-                'Track': 'Takip Edilme'
+                'Track': 'Takip Edilme',
+                'There is no link for this app': 'Bu uygulamaya ait bir link yok'
             }
         }
     },

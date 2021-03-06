@@ -3,17 +3,14 @@ import { useParams } from 'react-router-dom';
 import { getApplicationById, changeLineStopRiskById, getBusinessAreaTypes, updateApplication } from '../../api/appApiCalls';
 import { getAllTeams } from '../../api/teamApiCalls';
 import { getUsersByTeamId } from '../../api/userApiCalls';
-import { getBackends } from '../../api/backendApiCalls';
-import { getFrontends } from '../../api/frontendApiCalls';
-import { getDatabases } from '../../api/databaseApiCalls';
 import { useTranslation } from 'react-i18next';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 
 const AppDetailsCard = props => {
-    const { id } = useParams();
-    var { disabled } = useParams();
+    const { id } = props;
+    let { disabled } = props;
     disabled = disabled == 'true';
 
     const { t } = useTranslation();

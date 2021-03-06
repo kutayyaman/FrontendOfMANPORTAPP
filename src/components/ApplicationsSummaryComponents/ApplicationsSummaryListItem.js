@@ -21,7 +21,7 @@ const ApplicationsSummaryListItem = (props) => {
     }
 
     return (
-        <Accordion defaultActiveKey={isTheAppHasAnIssue ? "0" : "1"}>
+        summary.acountryWithServersList.length > 0 && <Accordion defaultActiveKey={isTheAppHasAnIssue ? "0" : "1"}>
             <div>
                 <Card className="m-5">
                     <Accordion.Toggle className={classOfAppAlert} as={Card.Header} eventKey="0">

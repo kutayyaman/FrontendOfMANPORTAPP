@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useTranslation } from 'react-i18next';
 import { useApiProgress } from '../shared/ApiProgress';
 import Spinner from '../components/Spinner';
 import AppDetailsCard from '../components/AppDetailPageComponents/AppDetailCard';
 import AppLinks from '../components/AppDetailPageComponents/AppLinks';
+import FactoryManagementComponent from '../components/AppDetailPageComponents/FactoryManagementComponent';
 
 const AppDetailPage = props => {
     const [issue, setIssue] = useState({});
     const [notFound, setNotFound] = useState(false);
-
+    const { id, disabled } = useParams();
     return (
         <div>
-            <AppDetailsCard></AppDetailsCard>
-            <AppLinks></AppLinks>
+            <AppDetailsCard id={id} disabled={disabled}></AppDetailsCard>
+            <AppLinks id={id} disabled={disabled}></AppLinks>
+            <FactoryManagementComponent id={id}></FactoryManagementComponent>
         </div>
     )
 
