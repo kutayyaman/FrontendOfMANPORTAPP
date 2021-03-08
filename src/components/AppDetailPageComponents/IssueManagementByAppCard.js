@@ -7,7 +7,7 @@ import IssueManagementByAppCardListItem from './IssueManagementByAppCardListItem
 
 
 const IssueManagementByAppCard = props => {
-    const { id } = props;
+    const { id, disabled } = props;
 
     const [page, setPage] = useState({
         content: [],

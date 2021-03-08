@@ -15,7 +15,7 @@ const AppDetailPage = props => {
         <div>
             <AppDetailsCard id={id} disabled={disabled}></AppDetailsCard>
             <AppLinks id={id} disabled={disabled}></AppLinks>
-            <FactoryManagementComponent id={id}></FactoryManagementComponent>
+            <FactoryManagementComponent id={id} disabled={disabled}></FactoryManagementComponent>
             <IssueManagementByAppCard id={id}></IssueManagementByAppCard>
         </div>
     )

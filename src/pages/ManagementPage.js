@@ -4,6 +4,7 @@ import { getAppsForManagementPage } from '../api/appApiCalls';
 import ManagementPageListItem from '../components/ManagementPageComponents/ManagementPageListItem';
 import Spinner from '../components/Spinner';
 import { useApiProgress } from '../shared/ApiProgress';
+import { Link } from 'react-router-dom'; //a etiketi yerine Link kullanma sebebimiz HashRouter yerine BrowserRouter kullanmak istersek ilerde sorun yasamamk icin yani hashrouter /# gibi bir etiket ekliyor cunku
 
 
 
@@ -100,6 +101,16 @@ const ManagementPage = () => {
                 {buttonsOrProgressBarDiv}
                 {errorMessage && <div className="alert-danger text-center">{errorMessage}</div>}
             </div>
+
+            <div className="text-center m-2">
+                <Link className="nav-link" to={`/app/add`}>
+                    <button type="button" className="btn btn-primary">{t('Add New App')}</button>
+                </Link>
+                <Link className="nav-link" to={`/app/setup`}>
+                    <button type="button" className="btn btn-primary">{t('Setup An Application On A Server')}</button>
+                </Link>
+            </div>
+
         </div>
     );
 };

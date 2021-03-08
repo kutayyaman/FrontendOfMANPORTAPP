@@ -55,7 +55,13 @@ i18n.use(initReactI18next).init({
                 'Track': 'Track',
                 'There is no link for this app': 'There is no link for this app',
                 'Issues Management': 'Issues Management',
-                'Issue Name': 'Issue Name'
+                'Issue Name': 'Issue Name',
+                'Add New App': 'Add New App',
+                'Add': 'Add',
+                'App Added Successfully': 'App Added Successfully',
+                'Setup': 'Setup',
+                'Successfully Installed': 'Successfully Installed',
+                'Setup An Application On A Server': 'Setup An Application On A Server',
             }
         },
         tr: {
@@ -110,7 +116,13 @@ i18n.use(initReactI18next).init({
                 'Track': 'Takip Edilme',
                 'There is no link for this app': 'Bu uygulamaya ait bir link yok',
                 'Issues Management': 'Issues Yönetimi',
-                'Issue Name': 'Issue Adı'
+                'Issue Name': 'Issue Adı',
+                'Add New App': 'Yeni Uygulama Ekle',
+                'Add': 'Ekle',
+                'App Added Successfully': 'Uygulama Eklendi',
+                'Setup An Application On A Server': 'Bir sunucuya uygulama kur',
+                'Setup': 'Kur',
+                'Successfully Installed': 'Başarılı bir şekilde kurulum gerçekleştirildi'
             }
         }
     },

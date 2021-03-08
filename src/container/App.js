@@ -11,6 +11,8 @@ import { useSelector } from 'react-redux';
 import IssueDetailPage from '../pages/IssueDetailPage';
 import ManagementPage from '../pages/ManagementPage';
 import AppDetailPage from '../pages/AppDetailPage';
+import AppDetailsCard from '../components/AppDetailPageComponents/AppDetailCard';
+import SetupApplicationHook from '../components/ApplicationHooks/SetupApplicationHook.js';
 
 const App = () => {
 
@@ -33,6 +35,8 @@ const App = () => {
           <Route path="/issues" component={IssuesPage} />
           <Route path="/issue/:id/:disabled" component={IssueDetailPage} />
           <Route path="/app/:id/:disabled" component={AppDetailPage} />
+          <Route path="/app/add" component={AppDetailsCard} />
+          <Route path="/app/setup" component={SetupApplicationHook} />
           <Redirect to="/" />
         </Switch>
       </Router>

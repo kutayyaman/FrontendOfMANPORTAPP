@@ -35,3 +35,11 @@ export const getBusinessAreaTypes = () => {
 export const updateApplication = (body) => {
     return axios.put(`/api/application`, body);
 }
+
+export const addApplication = (body) => {
+    return axios.post(`/api/application`, body);
+}
+
+export const setupApplicationInAServer = (body) => {
+    return axios.post(`/api/application/setup`, body);
+}

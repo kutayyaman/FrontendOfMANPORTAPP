@@ -6,7 +6,7 @@ import Spinner from '../../components/Spinner';
 import { useTranslation } from 'react-i18next';
 
 const FactoryManagementComponent = props => {
-    const { id } = props;
+    const { id, disabled } = props;
 
     const [managementFactories, setManagementFactories] = useState([]);
     const [errorMessage, seterrorMessage] = useState();
@@ -59,6 +59,7 @@ const FactoryManagementComponent = props => {
     }
     return (
         <div className="container">
+            <h2>Factory Management</h2>
             <table className="table">
                 <thead>
                     <tr>
@@ -73,7 +74,7 @@ const FactoryManagementComponent = props => {
                                 <td>
                                     <div className="row">
                                         <div className="form-check">
-                                            <input name='alive' className="form-check-input" type="checkbox" checked={managementFactory.alive} id="flexCheckDefault" value={managementFactory.alive} onChange={(event) => { changeAliveByAppIdAndCountryIdFunc(id, managementFactory.countryDTO.id); }} />
+                                            <input disabled={disabled} name='alive' className="form-check-input" type="checkbox" checked={managementFactory.alive} id="flexCheckDefault" value={managementFactory.alive} onChange={(event) => { changeAliveByAppIdAndCountryIdFunc(id, managementFactory.countryDTO.id); }} />
                                         </div>
                                         {managementFactory.countryDTO.name}
                                     </div>
@@ -84,6 +85,7 @@ const FactoryManagementComponent = props => {
                                     onlabel='ON'
                                     offlabel='OFF'
                                     onstyle="success"
+                                    disabled={disabled}
                                 /></td>
                             </tr>
                         )
