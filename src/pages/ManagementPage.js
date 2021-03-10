@@ -109,6 +109,9 @@ const ManagementPage = () => {
                 <Link className="nav-link" to={`/app/setup`}>
                     <button type="button" className="btn btn-primary">{t('Setup An Application On A Server')}</button>
                 </Link>
+                <Link className="nav-link" to={`/app/addJobToAnApp`}>
+                    <button type="button" className="btn btn-primary">{t('Add A Job To An App')}</button>
+                </Link>
             </div>
 
         </div>

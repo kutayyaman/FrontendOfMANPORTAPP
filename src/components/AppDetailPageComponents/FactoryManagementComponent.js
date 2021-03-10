@@ -74,7 +74,7 @@ const FactoryManagementComponent = props => {
                                 <td>
                                     <div className="row">
                                         <div className="form-check">
-                                            <input disabled={disabled} name='alive' className="form-check-input" type="checkbox" checked={managementFactory.alive} id="flexCheckDefault" value={managementFactory.alive} onChange={(event) => { changeAliveByAppIdAndCountryIdFunc(id, managementFactory.countryDTO.id); }} />
+                                            <input disabled={disabled == 'true'} name='alive' className="form-check-input" type="checkbox" checked={managementFactory.alive} id="flexCheckDefault" value={managementFactory.alive} onChange={(event) => { changeAliveByAppIdAndCountryIdFunc(id, managementFactory.countryDTO.id); }} />
                                         </div>
                                         {managementFactory.countryDTO.name}
                                     </div>

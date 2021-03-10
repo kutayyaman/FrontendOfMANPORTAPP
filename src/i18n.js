@@ -62,6 +62,8 @@ i18n.use(initReactI18next).init({
                 'Setup': 'Setup',
                 'Successfully Installed': 'Successfully Installed',
                 'Setup An Application On A Server': 'Setup An Application On A Server',
+                'Job Added Successfully': 'Job Added Successfully',
+                'Add A Job To An App': 'Add A Job To An App'
             }
         },
         tr: {
@@ -122,7 +124,9 @@ i18n.use(initReactI18next).init({
                 'App Added Successfully': 'Uygulama Eklendi',
                 'Setup An Application On A Server': 'Bir sunucuya uygulama kur',
                 'Setup': 'Kur',
-                'Successfully Installed': 'Başarılı bir şekilde kurulum gerçekleştirildi'
+                'Successfully Installed': 'Başarılı bir şekilde kurulum gerçekleştirildi',
+                'Job Added Successfully': 'Job Başarıyla Eklendi',
+                'Add A Job To An App': 'Bir Uygulamaya Job Ekle'
             }
         }
     },

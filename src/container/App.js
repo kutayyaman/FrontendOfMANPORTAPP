@@ -13,6 +13,7 @@ import ManagementPage from '../pages/ManagementPage';
 import AppDetailPage from '../pages/AppDetailPage';
 import AppDetailsCard from '../components/AppDetailPageComponents/AppDetailCard';
 import SetupApplicationHook from '../components/ApplicationHooks/SetupApplicationHook.js';
+import AddJobInterfaceHook from '../components/JobInterfaceHooks/AddJobInterfaceHook';
 
 const App = () => {
 
@@ -37,6 +38,7 @@ const App = () => {
           <Route path="/app/:id/:disabled" component={AppDetailPage} />
           <Route path="/app/add" component={AppDetailsCard} />
           <Route path="/app/setup" component={SetupApplicationHook} />
+          <Route path="/app/addJobToAnApp" component={AddJobInterfaceHook} />
           <Redirect to="/" />
         </Switch>
       </Router>

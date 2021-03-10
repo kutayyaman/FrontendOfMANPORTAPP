@@ -211,6 +211,7 @@ const AppDetailsCard = props => {
                                             copyApp.releaseDate = date;
                                             setApp(copyApp);
                                         }}
+                                        disabled={disabled}
                                     />
                                     <div className="invalid-feedback">
                                         {releaseDateError}

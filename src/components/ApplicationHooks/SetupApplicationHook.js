@@ -152,7 +152,8 @@ const SetupApplicationHook = props => {
             <div className="text-center m-2">
                 {errorMessage && <div className="alert-danger text-center">{errorMessage}</div>}
                 {successMessage && <div className="alert-success text-center">{successMessage}</div>}
-                <button type="button" className="btn btn-primary btn-lg btn-block" onClick={() => { setUp() }}>{t('Setup')}</button>
+                <button disabled={pendingApiCall} type="button" className="btn btn-primary btn-lg btn-block" onClick={() => { setUp() }}>{t('Setup')}</button>
+                {pendingApiCall && <Spinner></Spinner>}
             </div>
 
         </div>
