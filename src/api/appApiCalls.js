@@ -43,3 +43,7 @@ export const addApplication = (body) => {
 export const setupApplicationInAServer = (body) => {
     return axios.post(`/api/application/setup`, body);
 }
+
+export const deleteApplicationById = (id) => {
+    return axios.delete(`/api/application/${id}`)
+}

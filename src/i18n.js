@@ -63,7 +63,11 @@ i18n.use(initReactI18next).init({
                 'Successfully Installed': 'Successfully Installed',
                 'Setup An Application On A Server': 'Setup An Application On A Server',
                 'Job Added Successfully': 'Job Added Successfully',
-                'Add A Job To An App': 'Add A Job To An App'
+                'Add A Job To An App': 'Add A Job To An App',
+                'Short Code': 'Short Code',
+                'Full Name': 'Full Name',
+                'Live App Count': 'Live App Count',
+                'deleted' : 'deleted'
             }
         },
         tr: {
@@ -126,7 +130,11 @@ i18n.use(initReactI18next).init({
                 'Setup': 'Kur',
                 'Successfully Installed': 'Başarılı bir şekilde kurulum gerçekleştirildi',
                 'Job Added Successfully': 'Job Başarıyla Eklendi',
-                'Add A Job To An App': 'Bir Uygulamaya Job Ekle'
+                'Add A Job To An App': 'Bir Uygulamaya Job Ekle',
+                'Short Code': 'Kısa Kod',
+                'Full Name': 'Tam Ad',
+                'Live App Count': 'Canlı Uygulama Sayısı',
+                'deleted' : 'silindi'
             }
         }
     },

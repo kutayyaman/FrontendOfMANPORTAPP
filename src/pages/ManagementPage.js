@@ -112,6 +112,9 @@ const ManagementPage = () => {
                 <Link className="nav-link" to={`/app/addJobToAnApp`}>
                     <button type="button" className="btn btn-primary">{t('Add A Job To An App')}</button>
                 </Link>
+                <Link className="nav-link" to={`/management/plants`}>
+                    <button type="button" className="btn btn-primary">{t('Plant Management')}</button>
+                </Link>
             </div>
 
         </div>

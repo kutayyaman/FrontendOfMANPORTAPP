@@ -14,6 +14,7 @@ import AppDetailPage from '../pages/AppDetailPage';
 import AppDetailsCard from '../components/AppDetailPageComponents/AppDetailCard';
 import SetupApplicationHook from '../components/ApplicationHooks/SetupApplicationHook.js';
 import AddJobInterfaceHook from '../components/JobInterfaceHooks/AddJobInterfaceHook';
+import PlantManagementTable from '../components/ServerManagementHooks/PlantManagementTable';
 
 const App = () => {
 
@@ -32,7 +33,8 @@ const App = () => {
           {!isLoggedIn && <Route path="/login" component={LoginPageWithApiProgress} />}
           <Route path="/signup" component={UserSignupPageWithApiProgress} />
           <Route path="/dashboard" component={DashboardPage} />
-          <Route path="/management" component={ManagementPage} />
+          <Route exact path="/management/plants" component={PlantManagementTable} />
+          <Route exact path="/management" component={ManagementPage} />
           <Route path="/issues" component={IssuesPage} />
           <Route path="/issue/:id/:disabled" component={IssueDetailPage} />
           <Route path="/app/:id/:disabled" component={AppDetailPage} />

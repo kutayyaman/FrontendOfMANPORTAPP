@@ -21,9 +21,8 @@ const IssueListItem = (props) => {
         if (window.confirm(`Do you want to delete ${name}?`)) {
             try {
                 const response = await deleteIssueById(id);;
-                console.log(response.data);
                 //setInfoMessage(response.data); burayi yapcan
-                setInfoMessage("silindi");
+                setInfoMessage(t('deleted'));
             } catch (error) {
                 seterrorMessage(t('An Error Occured While deleting issue'))
             }
