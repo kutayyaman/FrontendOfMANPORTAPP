@@ -15,6 +15,7 @@ import AppDetailsCard from '../components/AppDetailPageComponents/AppDetailCard'
 import SetupApplicationHook from '../components/ApplicationHooks/SetupApplicationHook.js';
 import AddJobInterfaceHook from '../components/JobInterfaceHooks/AddJobInterfaceHook';
 import PlantManagementTable from '../components/ServerManagementHooks/PlantManagementTable';
+import LinkPage from '../pages/LinkPage';
 
 const App = () => {
 
@@ -41,6 +42,7 @@ const App = () => {
           <Route path="/app/add" component={AppDetailsCard} />
           <Route path="/app/setup" component={SetupApplicationHook} />
           <Route path="/app/addJobToAnApp" component={AddJobInterfaceHook} />
+          <Route path="/links" component={LinkPage} />
           <Redirect to="/" />
         </Switch>
       </Router>

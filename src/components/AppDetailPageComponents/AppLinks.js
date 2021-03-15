@@ -7,17 +7,22 @@ import { useApiProgress } from '../../shared/ApiProgress';
 import Spinner from '../../components/Spinner';
 
 const AppLinks = props => {
-    const { id } = props;
+    const { id, aspecificTypeWithCountriesAndEnvironments } = props;
     const [data, setData] = useState([]);
     const [errorMessage, setErrorMessage] = useState();
     const { t } = useTranslation();
 
     const getJobsByAppIdFunc = async (appId) => {
-        try {
-            const result = await getLinksByAppIdForManagementPage(appId);
-            setData(result.data);
-        } catch (error) {
-            setErrorMessage(t('Something Went Wrong'));
+        if (aspecificTypeWithCountriesAndEnvironments) {
+            setData(aspecificTypeWithCountriesAndEnvironments);
+        }
+        else {
+            try {
+                const result = await getLinksByAppIdForManagementPage(appId);
+                setData(result.data);
+            } catch (error) {
+                setErrorMessage(t('Something Went Wrong'));
+            }
         }
     }
 
