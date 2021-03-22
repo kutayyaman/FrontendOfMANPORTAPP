@@ -1,18 +1,24 @@
 import React from 'react';
 import { Accordion, Card, Container, Row, Col } from 'react-bootstrap';
 import ApplicationsSummaryCountryListItem from './ApplicationsSummaryCountryListItem';
+import '../../myCssFiles/breathingStyle.css';
 
 const ApplicationsSummaryListItem = (props) => {
     const { summary } = props;
-    const { acountryWithServersList, highestImpactOfApp } = summary; //burda uygulamanin bulundugu ulkelerin bulundugu liste
-
+    const { acountryWithServersList, highestImpactOfApp, lineStopRisk } = summary; //burda uygulamanin bulundugu ulkelerin bulundugu liste
     let classOfAppAlert = 'border border-success text-center';
     if (highestImpactOfApp === 'LOW') {
         classOfAppAlert = 'border border-primary text-center';
     } else if (highestImpactOfApp === 'MEDIUM') {
         classOfAppAlert = 'border border-warning text-center'
+        if (lineStopRisk == true) {
+            classOfAppAlert += ' anim-circle';
+        }
     } else if (highestImpactOfApp === 'HIGH') {
         classOfAppAlert = 'border border-danger text-center';
+        if (lineStopRisk == true) {
+            classOfAppAlert += ' anim-circle';
+        }
     }
 
     let isTheAppHasAnIssue = false;
