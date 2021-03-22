@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import { getIssues } from '../../api/issueApiCalls';
+import React, { useState } from 'react'
+import { getIssues, getIssuesByJobImplementId } from '../../api/issueApiCalls';
 import { useTranslation } from 'react-i18next';
 import IssueListItem from './IssueListItem';
 import { useApiProgress } from '../../shared/ApiProgress';
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import Spinner from '../Spinner';
 import IssueFilter from './IssueFilter';
 
-const IssueList = () => {
+const IssueList = (props) => {
+
+    const { jobImplementId } = props;
 
     const [page, setPage] = useState({
         content: [],
@@ -42,25 +41,39 @@ const IssueList = () => {
     }
 
     const loadIssues = async (isFiltered = isFilteredFromFilter, filteredValues = issuesFilterFromFilter, page = 0) => {
-        try {
-            let response;
-            if (isFiltered === false) {
-                response = await getIssues(page, 5, undefined);
+        if (jobImplementId && !isFiltered) {
+            try {
+                let response;
+                response = await getIssuesByJobImplementId(jobImplementId, page, 5);
+                setLoadFailure(false);
+                const { data } = response;
+                setPage(data);
+            } catch (error) {
+                setLoadFailure(true);
             }
-            else {
-                response = await getIssues(page, 5, filteredValues);
+        }
+
+        else {
+            try {
+                let response;
+                if (isFiltered === false) {
+                    response = await getIssues(page, 5, undefined);
+                }
+                else {
+                    response = await getIssues(page, 5, filteredValues);
+                }
+                setLoadFailure(false);
+                const { data } = response;
+                setPage(data);
+            } catch (error) {
+                setLoadFailure(true);
             }
-            setLoadFailure(false);
-            const { data } = response;
-            setPage(data);
-        } catch (error) {
-            setLoadFailure(true);
-        }
-        if (isFiltered) {
-            setIsFilteredFromFilter(isFiltered);
-        }
-        if (filteredValues) {
-            setIssuesFilterFromFilter({ ...filteredValues });
+            if (isFiltered) {
+                setIsFilteredFromFilter(isFiltered);
+            }
+            if (filteredValues) {
+                setIssuesFilterFromFilter({ ...filteredValues });
+            }
         }
     }
 
@@ -81,7 +94,6 @@ const IssueList = () => {
 
     return (
         <div>
-
             <IssueFilter loadIssues={loadIssues}></IssueFilter>
 
             <div className="card">

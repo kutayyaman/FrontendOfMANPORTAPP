@@ -38,3 +38,7 @@ export const changeIssueTrackById = (track, id) => {
 export const getIssuesByAppId = (appId, page = 0, size = 5) => {
     return axios.get(`/api/issue/getByAppId/${appId}?page=${page}&size=${size}`);
 }
+
+export const getIssuesByJobImplementId = (jobImplementId, page = 0, size = 5) => {
+    return axios.get(`/api/issue?jobImplementId=${jobImplementId}&page=${page}&size=${size}`);
+}
