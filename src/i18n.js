@@ -67,7 +67,8 @@ i18n.use(initReactI18next).init({
                 'Short Code': 'Short Code',
                 'Full Name': 'Full Name',
                 'Live App Count': 'Live App Count',
-                'deleted' : 'deleted'
+                'deleted': 'deleted',
+                'Added Successfully': 'Added Successfully'
             }
         },
         tr: {
@@ -134,7 +135,8 @@ i18n.use(initReactI18next).init({
                 'Short Code': 'Kısa Kod',
                 'Full Name': 'Tam Ad',
                 'Live App Count': 'Canlı Uygulama Sayısı',
-                'deleted' : 'silindi'
+                'deleted': 'silindi',
+                'Added Successfully': 'Başarıyla Eklendi'
             }
         }
     },

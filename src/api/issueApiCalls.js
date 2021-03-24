@@ -42,3 +42,7 @@ export const getIssuesByAppId = (appId, page = 0, size = 5) => {
 export const getIssuesByJobImplementId = (jobImplementId, page = 0, size = 5) => {
     return axios.get(`/api/issue?jobImplementId=${jobImplementId}&page=${page}&size=${size}`);
 }
+
+export const addIssue = (body) => {
+    return axios.post(`/api/issue`, body);
+}

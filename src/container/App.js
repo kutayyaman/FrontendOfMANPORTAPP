@@ -38,6 +38,7 @@ const App = () => {
           <Route exact path="/management" component={ManagementPage} />
           <Route path="/issues" component={IssuesPage} />
           <Route path="/issue/:id/:disabled" component={IssueDetailPage} />
+          <Route path="/issue/add" component={IssueDetailPage} />
           <Route path="/app/:id/:disabled" component={AppDetailPage} />
           <Route path="/app/add" component={AppDetailsCard} />
           <Route path="/app/setup" component={SetupApplicationHook} />

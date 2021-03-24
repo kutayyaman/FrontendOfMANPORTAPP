@@ -43,7 +43,7 @@ const IssueDetailPage = props => {
         )
     }
 
-    if (notFound) {
+    if (notFound && id != undefined) {
         return (
             <div className="container">
                 <div className="alert alert-danger text-center" role="alert">

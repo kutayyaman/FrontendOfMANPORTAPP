@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { getImpactTypes, updateIssue } from '../../api/issueApiCalls';
-import { getCountries } from '../../api/countryApiCalls';
+import { getImpactTypes, updateIssue, addIssue } from '../../api/issueApiCalls';
+import { getCountries, getCountriesByAppId } from '../../api/countryApiCalls';
 import { getApps } from '../../api/appApiCalls';
 import { getJobsByAppId } from '../../api/jobInterfaceApiCalls';
 import { getServersByCountryId } from '../../api/serverApiCalls';
@@ -42,6 +42,7 @@ const IssueDetailsCard = props => {
 
     useEffect(() => {
         loadJobs(issue.appId);
+        getCountriesByAppIdFunc(issue.appId);
     }, [issue.appId])
 
     useEffect(() => {
@@ -59,6 +60,14 @@ const IssueDetailsCard = props => {
     const loadCountries = async () => {
         try {
             const response = await getCountries();
+            setCountries(response.data);
+        } catch (error) {
+        }
+    }
+
+    const getCountriesByAppIdFunc = async (id) => {
+        try {
+            const response = await getCountriesByAppId(id);
             setCountries(response.data);
         } catch (error) {
         }
@@ -136,6 +145,21 @@ const IssueDetailsCard = props => {
         }
     }
 
+    const addButtonClicked = async () => {
+        setErrorMessage(undefined);
+        setSuccessMessage(undefined);
+        if (issue.jobInterfaceId !== '' && issue.serverId !== '' && issue.name && issue.description && issue.impact && issue.appId && issue.countryId && issue.status != '' && issue.status) {
+            try {
+                const response = await addIssue(issue);
+                setSuccessMessage(t('Added Successfully'));
+            } catch (error) {
+                setErrorMessage(error.response.data.message);
+            }
+        }
+        else {
+            setErrorMessage(t('You Should Fill in the fields'));
+        }
+    }
     return (
         <div className="card">
             <div className="card-header text-center">
@@ -199,6 +223,7 @@ const IssueDetailsCard = props => {
                             <div className="col-3">{t('App Name')}:</div>
                             <div className="col-9">
                                 <select disabled={disabled} className="form-control" name='appId' onChange={(event) => { inputOnChanged(event); }}>
+                                    <option value=''>{t('Select One')}</option>
                                     {apps.map((appFromApi, index) => {
                                         return (
                                             <option key={appFromApi.id} value={appFromApi.id} selected={appFromApi.id == appId}>{appFromApi.shortName}</option>
@@ -214,12 +239,16 @@ const IssueDetailsCard = props => {
                             <div className="col-3"> {t('Status')}:</div>
                             <div className="col-9">
                                 <select disabled={disabled} className="form-control" name='status' onChange={(event) => { inputOnChanged(event); }}>
+                                    {!props.issue.id && <option value=''>{t('Select One')}</option>}
                                     <option>{status == 'false' ? 'false' : 'true'}</option>
                                     {status == true &&
                                         <option value={false}>{false.toString()}</option>
                                     }
                                     {status == false &&
                                         <option value={true}>{true.toString()}</option>
+                                    }
+                                    {status == undefined &&
+                                        <option value={false}>{false.toString()}</option>
                                     }
 
                                 </select></div>
@@ -252,6 +281,7 @@ const IssueDetailsCard = props => {
                             <div className="col-3">{t('Country')}:</div>
                             <div className="col-9">
                                 <select disabled={disabled} className="form-control" name='countryId' onChange={(event) => { inputOnChanged(event); }}>
+                                    <option value=''>{t('Select One')}</option>
                                     {countries.map((countryFromApi, index) => {
                                         return (
                                             <option key={index} value={countryFromApi.id} selected={countryFromApi.id == issue.countryId}>{countryFromApi.name}</option>
@@ -286,7 +316,10 @@ const IssueDetailsCard = props => {
             </div>
             {errorMessage && <div className="alert-danger text-center">{errorMessage}</div>}
             {successMessage && <div className="alert-success text-center">{successMessage}</div>}
-            <button hidden={disabled} className="btn btn-primary m-1" onClick={() => { updateButtonClicked() }}>{t('Update')}</button>
+            {props.issue.id ?
+                <button hidden={disabled} className="btn btn-warning m-1" onClick={() => { updateButtonClicked() }}>{t('Update')}</button> :
+                <button hidden={disabled} className="btn btn-primary m-1" onClick={() => { addButtonClicked() }}>{t('Add')}</button>
+            }
         </div>
     )
 }
