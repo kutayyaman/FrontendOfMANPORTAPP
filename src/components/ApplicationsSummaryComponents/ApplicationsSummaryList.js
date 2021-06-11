@@ -7,7 +7,7 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import Spinner from '../Spinner';
-
+import SockJS from 'sockjs-client';
 
 const ApplicationsSummaryList = () => {
     const [summaries, setsummaries] = useState([]);
@@ -16,15 +16,55 @@ const ApplicationsSummaryList = () => {
     const pendingApiCall = useApiProgress('/api/applicationsummary'); //bu useEffect'den once yazilmali yoksa calismaz cunku useEffect'in altinda bir yere yazsaydik istek atildiktan sonra bu calisirdi ve gec kalmis olurduk
     const { t } = useTranslation();
 
+    var stompClient = null;
+    var baseAddress = 'http://localhost:8080';
+    var Stomp = require('stompjs');
+
     useEffect(async () => {
         try {
             setloadFailure(false);
             const response = await getApplicationsSummary();
             setsummaries(response.data.applicationsSummary);
+            connect();
         } catch (error) {
             setloadFailure(true);
+            disconnect();
         }
     }, []);
+
+    const connect = async () => {
+            var socket = new SockJS(baseAddress + '/issueTracking');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function(frame) {
+                console.log('Connected: ' + frame);
+                stompClient.subscribe('/issueTrackingBroker', function (message) {
+                    handleReceivedMessage(JSON.parse(message.body));
+                });
+            });
+    }
+
+    const disconnect = async () => {
+        if(stompClient != null) {
+            stompClient.disconnect();
+        }
+        console.log("Disconnected")
+   }
+
+    const handleReceivedMessage = async (message) => {
+        try {
+            setloadFailure(false);
+            const response = await getApplicationsSummary();
+            setsummaries(response.data.applicationsSummary);
+            connect();
+        } catch (error) {
+            setloadFailure(true);
+            disconnect();
+        }
+        console.log(message);
+    }
+
+
+
 
     let returnView;
     returnView =

@@ -27,6 +27,8 @@
     "react-scripts": "4.0.1",
     "redux": "^4.0.5",
     "secure-ls": "^1.2.6",
+    "sockjs": "^0.3.21",
+    "stompjs": "^2.3.3",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
