@@ -41,7 +41,10 @@ const LoginPage = (props) => {
             dispatch(loginSuccess(authState));
             push('/');
         } catch (errorFromBackend) {
-            setError(errorFromBackend.response.data.message);
+            if(errorFromBackend.response){
+                setError(errorFromBackend.response.data.message);
+
+            }
         }
 
     };

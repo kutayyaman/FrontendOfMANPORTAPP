@@ -25,30 +25,46 @@ const App = () => {
     };
   });
 
-  return (
-    <div>
-      <Router>
-        <NavBar></NavBar>
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          {!isLoggedIn && <Route path="/login" component={LoginPageWithApiProgress} />}
-          <Route path="/signup" component={UserSignupPageWithApiProgress} />
-          <Route path="/dashboard" component={DashboardPage} />
-          <Route exact path="/management/plants" component={PlantManagementTable} />
-          <Route exact path="/management" component={ManagementPage} />
-          <Route path="/issues" component={IssuesPage} />
-          <Route path="/issue/:id/:disabled" component={IssueDetailPage} />
-          <Route path="/issue/add" component={IssueDetailPage} />
-          <Route path="/app/:id/:disabled" component={AppDetailPage} />
-          <Route path="/app/add" component={AppDetailsCard} />
-          <Route path="/app/setup" component={SetupApplicationHook} />
-          <Route path="/app/addJobToAnApp" component={AddJobInterfaceHook} />
-          <Route path="/links" component={LinkPage} />
-          <Redirect to="/" />
-        </Switch>
-      </Router>
-    </div> //eger parametre alan bir path tanimlamak isteseydik "<Route path="/user/:email" component={ComponentName} />" bunun gibi yapardik.
-  );
+  if (isLoggedIn) {
+    return (
+      <div>
+        <Router>
+          <NavBar></NavBar>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/signup" component={UserSignupPageWithApiProgress} />
+            <Route path="/dashboard" component={DashboardPage} />
+            <Route exact path="/management/plants" component={PlantManagementTable} />
+            <Route exact path="/management" component={ManagementPage} />
+            <Route path="/issues" component={IssuesPage} />
+            <Route path="/issue/:id/:disabled" component={IssueDetailPage} />
+            <Route path="/issue/add" component={IssueDetailPage} />
+            <Route path="/app/:id/:disabled" component={AppDetailPage} />
+            <Route path="/app/add" component={AppDetailsCard} />
+            <Route path="/app/setup" component={SetupApplicationHook} />
+            <Route path="/app/addJobToAnApp" component={AddJobInterfaceHook} />
+            <Route path="/links" component={LinkPage} />
+            <Redirect to="/" />
+          </Switch>
+        </Router>
+      </div> //eger parametre alan bir path tanimlamak isteseydik "<Route path="/user/:email" component={ComponentName} />" bunun gibi yapardik.
+    );
+  } else {
+    return (
+      <div>
+        <Router>
+          <NavBar></NavBar>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/login" component={LoginPageWithApiProgress} />
+            <Route path="/signup" component={UserSignupPageWithApiProgress} />
+            <Redirect to="/login" />
+          </Switch>
+        </Router>
+      </div> //eger parametre alan bir path tanimlamak isteseydik "<Route path="/user/:email" component={ComponentName} />" bunun gibi yapardik.
+    );
+  }
+
 }
 
 export default App;

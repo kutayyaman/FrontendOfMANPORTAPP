@@ -53,10 +53,13 @@ const UserSignupPage = (props) => {
             setMessage(response.data.message);
         }
         catch (error) {
-            if (error.response.data.validationErrors) { //validationErrors undefined degilse
-                setErrors(error.response.data.validationErrors);
-                setMessage(undefined);
+            if(error.response){
+                if (error.response.data.validationErrors) { //validationErrors undefined degilse
+                    setErrors(error.response.data.validationErrors);
+                    setMessage(undefined);
+                }
             }
+            
         }
         finally {
         }
