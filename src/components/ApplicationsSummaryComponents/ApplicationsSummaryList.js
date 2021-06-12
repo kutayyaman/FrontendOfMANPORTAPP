@@ -8,6 +8,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import Spinner from '../Spinner';
 import SockJS from 'sockjs-client';
+import Alarm from '../../audio/Alarm.mp3';
+import {Howl, Howler} from "howler";
 
 const ApplicationsSummaryList = () => {
     const [summaries, setsummaries] = useState([]);
@@ -38,6 +40,16 @@ const ApplicationsSummaryList = () => {
             stompClient.connect({}, function(frame) {
                 console.log('Connected: ' + frame);
                 stompClient.subscribe('/issueTrackingBroker', function (message) {
+                    console.log(message);
+                    if(JSON.parse(message.body).lineStopRisk===true){
+                        if(JSON.parse(message.body).impact==='MEDIUM' || JSON.parse(message.body).impact==='HIGH'){
+                            const sound = new Howl({
+                                src: [Alarm]
+                            })
+                            sound.play();
+                            console.log("girdiiii")
+                        }
+                    }
                     handleReceivedMessage(JSON.parse(message.body));
                 });
             });
@@ -83,7 +95,7 @@ const ApplicationsSummaryList = () => {
             </div>
         </div>
 
-
+    Howler.volume(1)
     return (
         <div>
             {returnView}
